@@ -1,0 +1,10 @@
+# maven
+target
+.allure
+
+### IntelliJ IDEA ###
+.idea
+*.iml
+
+#Allure
+allure-results/
