@@ -13,6 +13,7 @@
     <properties>
         <java.version>11</java.version>
         <eid.certvalidator.version>0.0.2</eid.certvalidator.version>
+        <eid-certificate-generator.version>1.0.1</eid-certificate-generator.version>
         <junit-jupiter-version>5.8.2</junit-jupiter-version>
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
         <allure.cmd.download.url>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
@@ -20,6 +21,8 @@
         <allure.version>2.18.1</allure.version>
         <allure.report.version>2.4.1</allure.report.version>
         <allure.maven.version>2.11.2</allure.maven.version>
+        <mockito-junit-jupiter.version>3.12.4</mockito-junit-jupiter.version>
+        <mockito-core.version>4.6.1</mockito-core.version>
     </properties>
 
     <dependencies>
@@ -38,6 +41,12 @@
         </dependency>
         <!-- TEST dependencies -->
         <dependency>
+            <groupId>no.digdir.eid</groupId>
+            <artifactId>eid-certificate-generator</artifactId>
+            <version>${eid-certificate-generator.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit-jupiter-version}</version>
@@ -46,10 +55,15 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>4.6.1</version>
+            <version>${mockito-core.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito-junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>        <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <version>${allure.version}</version>

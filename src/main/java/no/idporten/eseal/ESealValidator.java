@@ -20,4 +20,14 @@ public class ESealValidator {
         validator.validate(certificate);
     }
 
+    public boolean isValid(X509Certificate certificate) {
+        try {
+            validator.validate(certificate);
+            return true;
+        } catch (CertificateValidationException e) {
+            // TODO hvordan kan lib logge?
+            return false;
+        }
+    }
+
 }
