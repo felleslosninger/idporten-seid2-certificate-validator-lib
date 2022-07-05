@@ -1,4 +1,4 @@
-package no.idporten.eseal;
+package no.idporten.seid2;
 
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @DisplayName("When validating certificates")
 @ExtendWith(MockitoExtension.class)
-public class ESealValidatorTest {
+public class SEID2CertificateValidatorTest {
 
     private static TestData testData;
 
@@ -23,22 +23,22 @@ public class ESealValidatorTest {
     }
 
     @SneakyThrows
-    protected ESealValidator createTestBusinessCertificateValidator(CertificateAuthoritiesProperties properties) {
-        return new ESealValidatorBuilder(Environment.TEST).withProperties(properties).build();
+    protected SEID2CertificateValidator createTestBusinessCertificateValidator(CertificateAuthoritiesProperties properties) {
+        return new SEID2CertificateValidatorBuilder(Environment.TEST).withProperties(properties).build();
         // TODO crl
     }
 
     @DisplayName("then a valid certificate is accepted")
     @Test
     void testValidateValidCertificate() throws Exception {
-        ESealValidator validator = createTestBusinessCertificateValidator(testData.props());
+        SEID2CertificateValidator validator = createTestBusinessCertificateValidator(testData.props());
         validator.isValid(testData.createCertificate());
     }
 
     @Test
     @DisplayName("then a self-signed certificate is rejected")
     public void testSelfSignedCertificateIsInvalid() throws Exception {
-        ESealValidator validator = createTestBusinessCertificateValidator(testData.props());
+        SEID2CertificateValidator validator = createTestBusinessCertificateValidator(testData.props());
         X509Certificate certificate = testData.selfSignedCertificate();
         assertFalse(validator.isValid(certificate));
     }

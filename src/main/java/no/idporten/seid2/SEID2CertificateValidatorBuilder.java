@@ -1,4 +1,4 @@
-package no.idporten.eseal;
+package no.idporten.seid2;
 
 
 import no.digdir.certvalidator.api.CrlCache;
@@ -13,7 +13,7 @@ import java.util.Objects;
  * Builder configuring and creating certificate validator instances.  Has default configuration for test and production
  * environments, and options for CRL handling.
  */
-public class ESealValidatorBuilder {
+public class SEID2CertificateValidatorBuilder {
 
     private Environment environment;
     private CertificateAuthoritiesProperties certificateAuthoritiesProperties;
@@ -25,7 +25,7 @@ public class ESealValidatorBuilder {
      * @param environment environment
      * @see #withDefaults()
      */
-    public ESealValidatorBuilder(Environment environment) {
+    public SEID2CertificateValidatorBuilder(Environment environment) {
         this.environment = Objects.requireNonNull(environment, "Specify environment");
         this.withDefaults();
     }
@@ -35,7 +35,7 @@ public class ESealValidatorBuilder {
      *
      * @return builder with default values
      */
-    public ESealValidatorBuilder withDefaults() {
+    public SEID2CertificateValidatorBuilder withDefaults() {
         this.certificateAuthoritiesProperties = CertificateAuthoritiesProperties.defaultProperties(this.environment);
         this.withCrlCacheInMemory();
         return this;
@@ -47,7 +47,7 @@ public class ESealValidatorBuilder {
      * @param certificateAuthoritiesProperties new environment properties
      * @return builder with new environment properties
      */
-    public ESealValidatorBuilder withProperties(CertificateAuthoritiesProperties certificateAuthoritiesProperties) {
+    public SEID2CertificateValidatorBuilder withProperties(CertificateAuthoritiesProperties certificateAuthoritiesProperties) {
         if (certificateAuthoritiesProperties != null) {
             this.certificateAuthoritiesProperties = certificateAuthoritiesProperties;
         }
@@ -61,7 +61,7 @@ public class ESealValidatorBuilder {
      * @return builder with disk CRL cache
      * @throws IOException if path is not correct
      */
-    public ESealValidatorBuilder withCrlCacheOnDisk(Path folder) throws IOException {
+    public SEID2CertificateValidatorBuilder withCrlCacheOnDisk(Path folder) throws IOException {
         this.crlCache = new DirectoryCrlCache(Objects.requireNonNull(folder, "Specify folder"));
         return this;
     }
@@ -71,7 +71,7 @@ public class ESealValidatorBuilder {
      *
      * @return builder for in-memory CRL cache
      */
-    public ESealValidatorBuilder withCrlCacheInMemory() {
+    public SEID2CertificateValidatorBuilder withCrlCacheInMemory() {
         this.crlCache = new SimpleCrlCache();
         return this;
     }
@@ -82,14 +82,14 @@ public class ESealValidatorBuilder {
      * @return
      * @throws Exception
      */
-    public ESealValidator build() throws Exception {
+    public SEID2CertificateValidator build() throws Exception {
         Objects.requireNonNull(certificateAuthoritiesProperties);
         Objects.requireNonNull(crlCache);
         return createValidator(environment, certificateAuthoritiesProperties, crlCache);
     }
 
-    protected ESealValidator createValidator(Environment environment, CertificateAuthoritiesProperties certificateAuthoritiesProperties, CrlCache crlCache) throws Exception {
-        return new ESealValidatorFactory().createValidator(environment, certificateAuthoritiesProperties, crlCache);
+    protected SEID2CertificateValidator createValidator(Environment environment, CertificateAuthoritiesProperties certificateAuthoritiesProperties, CrlCache crlCache) throws Exception {
+        return new SEID2CertificateValidatorFactory().createValidator(environment, certificateAuthoritiesProperties, crlCache);
     }
 
 }

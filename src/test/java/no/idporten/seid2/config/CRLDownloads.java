@@ -1,8 +1,8 @@
-package no.idporten.eseal.config;
+package no.idporten.seid2.config;
 
 import lombok.SneakyThrows;
 import no.digdir.certvalidator.rule.CRLRule;
-import no.idporten.eseal.CertificateAuthoritiesProperties;
+import no.idporten.seid2.CertificateAuthoritiesProperties;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.junit.jupiter.api.Test;

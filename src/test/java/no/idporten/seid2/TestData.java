@@ -1,4 +1,4 @@
-package no.idporten.eseal;
+package no.idporten.seid2;
 
 import lombok.SneakyThrows;
 import no.digdir.eid.certgenerator.CustomCertBuilder;
@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 
-import static no.idporten.eseal.X509CertificateUtils.pemEncodedCert;
+import static no.idporten.seid2.X509CertificateUtils.pemEncodedCert;
 
 public class TestData {
 

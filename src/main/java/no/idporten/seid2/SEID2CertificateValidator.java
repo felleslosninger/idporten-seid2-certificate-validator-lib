@@ -1,4 +1,4 @@
-package no.idporten.eseal;
+package no.idporten.seid2;
 
 import no.digdir.certvalidator.Validator;
 import no.digdir.certvalidator.api.CertificateValidationException;
@@ -7,12 +7,12 @@ import java.security.cert.X509Certificate;
 import java.util.Objects;
 
 /**
- * Validator for x509 electronic seals.
+ * SEID2 certificate validator for X509 certificates.
  */
-public class ESealValidator {
+public class SEID2CertificateValidator {
     private final Validator validator;
 
-    public ESealValidator(Validator validator) {
+    public SEID2CertificateValidator(Validator validator) {
         this.validator = Objects.requireNonNull(validator);
     }
 

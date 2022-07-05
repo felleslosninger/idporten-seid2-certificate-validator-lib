@@ -1,4 +1,4 @@
-package no.idporten.eseal;
+package no.idporten.seid2;
 
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;

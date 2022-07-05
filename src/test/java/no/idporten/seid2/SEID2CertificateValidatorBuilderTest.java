@@ -1,4 +1,4 @@
-package no.idporten.eseal;
+package no.idporten.seid2;
 
 import no.digdir.certvalidator.api.CrlCache;
 import no.digdir.certvalidator.util.DirectoryCrlCache;
@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @DisplayName("When building validators")
-public class ESealValidatorBuilderTest {
+public class SEID2CertificateValidatorBuilderTest {
 
     @DisplayName("then an environment must be specified")
     @Test
     void testEnvironmentMustBeSpecified() throws Exception {
-        NullPointerException e = assertThrows(NullPointerException.class, () -> new ESealValidatorBuilder(null));
+        NullPointerException e = assertThrows(NullPointerException.class, () -> new SEID2CertificateValidatorBuilder(null));
         assertAll(
                 () -> assertNotNull(e),
                 () -> assertEquals("Specify environment", e.getMessage())
@@ -28,57 +28,57 @@ public class ESealValidatorBuilderTest {
     @DisplayName("then the default is to use environment specific properties and in-memory CRL cache")
     @Test
     void testBuildWithDefaults() throws Exception {
-        ESealValidatorBuilder builder = spy(new ESealValidatorBuilder(Environment.TEST));
-        ESealValidator eSealValidator = builder.build();
+        SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
+        SEID2CertificateValidator SEID2CertificateValidator = builder.build();
         verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), any(SimpleCrlCache.class));
-        assertNotNull(eSealValidator);
+        assertNotNull(SEID2CertificateValidator);
     }
 
     @DisplayName("then defaults can be set programmatically")
     @Test
     void testProgrammaticallySetDefaults() throws Exception {
-        ESealValidatorBuilder builder = spy(new ESealValidatorBuilder(Environment.TEST));
-        ESealValidator eSealValidator = builder.withDefaults().build();
+        SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
+        SEID2CertificateValidator SEID2CertificateValidator = builder.withDefaults().build();
         verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), any(SimpleCrlCache.class));
-        assertNotNull(eSealValidator);
+        assertNotNull(SEID2CertificateValidator);
     }
 
     @DisplayName("then properties can be overridden")
     @Test
     void testOverrideProperties() throws Exception {
-        ESealValidatorBuilder builder = spy(new ESealValidatorBuilder(Environment.TEST));
+        SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
         // TODO prod
-        ESealValidator eSealValidator = builder.withProperties(CertificateAuthoritiesProperties.testProperties()).build();
+        SEID2CertificateValidator SEID2CertificateValidator = builder.withProperties(CertificateAuthoritiesProperties.testProperties()).build();
         verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), any(CrlCache.class));
-        assertNotNull(eSealValidator);
+        assertNotNull(SEID2CertificateValidator);
     }
 
     @DisplayName("then CRL cache strategy can be overridden to use disk")
     @Test
     void testOverrideCRLCache(@TempDir Path cacheDir) throws Exception {
-        ESealValidatorBuilder builder = spy(new ESealValidatorBuilder(Environment.TEST));
-        ESealValidator eSealValidator = builder.withCrlCacheOnDisk(cacheDir).build();
+        SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
+        SEID2CertificateValidator SEID2CertificateValidator = builder.withCrlCacheOnDisk(cacheDir).build();
         verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), any(DirectoryCrlCache.class));
-        assertNotNull(eSealValidator);
+        assertNotNull(SEID2CertificateValidator);
     }
 
     @DisplayName("then default intermediate certificates for prod are valid")
     @Test
     void testValidProdIntermediateCertificates() throws Exception {
-        ESealValidator eSealValidator = new ESealValidatorBuilder(Environment.PROD).build();
+        SEID2CertificateValidator SEID2CertificateValidator = new SEID2CertificateValidatorBuilder(Environment.PROD).build();
         CertificateAuthoritiesProperties prodProperties = CertificateAuthoritiesProperties.prodProperties();
         for (String cert : prodProperties.getIntermediateCertificates()) {
-            assertDoesNotThrow(() -> eSealValidator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
+            assertDoesNotThrow(() -> SEID2CertificateValidator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
         }
     }
 
     @DisplayName("then default intermediate certificates for test are valid")
     @Test
     void testValidTestIntermediateCertificates() throws Exception {
-        ESealValidator eSealValidator = new ESealValidatorBuilder(Environment.TEST).build();
+        SEID2CertificateValidator SEID2CertificateValidator = new SEID2CertificateValidatorBuilder(Environment.TEST).build();
         CertificateAuthoritiesProperties testProperties = CertificateAuthoritiesProperties.testProperties();
         for (String cert : testProperties.getIntermediateCertificates()) {
-            assertDoesNotThrow(() -> eSealValidator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
+            assertDoesNotThrow(() -> SEID2CertificateValidator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
         }
     }
 

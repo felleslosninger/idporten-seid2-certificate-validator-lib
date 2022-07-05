@@ -1,4 +1,4 @@
-package no.idporten.eseal;
+package no.idporten.seid2;
 
 import no.digdir.certvalidator.Validator;
 import no.digdir.certvalidator.ValidatorBuilder;
@@ -19,9 +19,9 @@ import java.util.Objects;
 /**
  * Factory creating validator instances. Load certificates and create rules.  Consider using the builder for easy
  * setup.
- * @see ESealValidatorBuilder
+ * @see SEID2CertificateValidatorBuilder
  */
-public class ESealValidatorFactory {
+public class SEID2CertificateValidatorFactory {
 
     /**
      * Creates a validator.
@@ -32,7 +32,7 @@ public class ESealValidatorFactory {
      * @return certificate validator
      * @throws Exception if create fails
      */
-    public ESealValidator createValidator(Environment environment, CertificateAuthoritiesProperties certificateAuthoritiesProperties, CrlCache crlCache) throws Exception {
+    public SEID2CertificateValidator createValidator(Environment environment, CertificateAuthoritiesProperties certificateAuthoritiesProperties, CrlCache crlCache) throws Exception {
         Objects.requireNonNull(environment);
         Objects.requireNonNull(certificateAuthoritiesProperties);
         Objects.requireNonNull(crlCache);
@@ -44,7 +44,7 @@ public class ESealValidatorFactory {
                 .addRule(createChainRule(environment, certificateAuthoritiesProperties))
                 .addRule(new CRLRule(crlCache))
                 .build();
-        return new ESealValidator(validator);
+        return new SEID2CertificateValidator(validator);
     }
 
     private ValidatorRule createChainRule(Environment environment, CertificateAuthoritiesProperties certificateAuthoritiesProperties) throws IOException, CertificateException {
