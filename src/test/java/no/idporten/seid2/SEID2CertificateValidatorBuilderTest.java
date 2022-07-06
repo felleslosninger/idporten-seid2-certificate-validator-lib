@@ -46,10 +46,9 @@ public class SEID2CertificateValidatorBuilderTest {
     @DisplayName("then properties can be overridden")
     @Test
     void testOverrideProperties() throws Exception {
-        SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
-        // TODO prod
+        SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.PROD));
         SEID2CertificateValidator SEID2CertificateValidator = builder.withProperties(CertificateAuthoritiesProperties.testProperties()).build();
-        verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), any(CrlCache.class));
+        verify(builder).createValidator(eq(Environment.PROD), eq(CertificateAuthoritiesProperties.testProperties()), any(CrlCache.class));
         assertNotNull(SEID2CertificateValidator);
     }
 
