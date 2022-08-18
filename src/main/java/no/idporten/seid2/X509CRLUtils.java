@@ -37,7 +37,7 @@ class X509CRLUtils {
                 CrlUtils.save(Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING), crl);
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new SEID2CertificateValidatorInitException("Failed to download and save CRL", e);
         }
     }
 
@@ -52,7 +52,7 @@ class X509CRLUtils {
         try {
             return CrlUtils.load(X509CRLUtils.class.getClassLoader().getResourceAsStream("crl/" + environment.name() + "/" + toFilename(distributionPointUrl)));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new SEID2CertificateValidatorInitException("Failed to load CRL from classpath", e);
         }
     }
 
