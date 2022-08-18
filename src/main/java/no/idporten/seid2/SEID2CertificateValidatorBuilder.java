@@ -31,7 +31,7 @@ public class SEID2CertificateValidatorBuilder {
     }
 
     /**
-     * Sets default properties for environment and default in-memory CRL caching whit pre-laaded CRLs
+     * Sets default properties for environment and default in-memory CRL caching containing pre-laaded CRLs.
      *
      * @return builder with default values
      */
@@ -70,13 +70,18 @@ public class SEID2CertificateValidatorBuilder {
     /**
      * Sets CRL caching to in-memory.  This is the default setting.
      *
-     * @return builder for in-memory CRL cache
+     * @return builder with in-memory CRL cache
      */
     public SEID2CertificateValidatorBuilder withCrlCacheInMemory() {
         this.crlCache = new SimpleCrlCache();
         return this;
     }
 
+    /**
+     * Pre-loads CRL cache with known CRLs.
+     *
+     * @return builder with data in CRL cache
+     */
     public SEID2CertificateValidatorBuilder withPreloadedCrlCache() {
         Objects.requireNonNull(crlCache);
         for (String crlDistributionPoint : this.certificateAuthoritiesProperties.getCrlDistributionPoints()) {
