@@ -15,6 +15,12 @@ The setup for certificate validation in complex.  Even if the configuration of c
 
 The default properties used in the library is avaibale in the [certificate authorities properties](src/main/java/no/idporten/seid2/CertificateAuthoritiesProperties.java) class.  It contains properties for test and production environments for certificate authorities Buypass and Commfides.
 
+## Pre-loaded CRLs
+
+CRLs are preloaded and added to the CRL cache when using the default setup.  
+
+The CRLs are downloaded [when JUnit tests are run](src/test/java/no/idporten/seid2/X509CRLUtilsTest.java).  They are stored under the [src/main/resources directory](src/main/resources).  Commit the changes if needed.  This will keep the library fairly updated even when CRL services are down on the CA side on application startup.
+
 ## Using the library
 
 ### Setting up the SEID2 certificate validator

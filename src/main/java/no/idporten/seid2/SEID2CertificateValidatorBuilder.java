@@ -31,13 +31,14 @@ public class SEID2CertificateValidatorBuilder {
     }
 
     /**
-     * Sets default properties for environment and default in-memory CRL caching.
+     * Sets default properties for environment and default in-memory CRL caching whit pre-laaded CRLs
      *
      * @return builder with default values
      */
     public SEID2CertificateValidatorBuilder withDefaults() {
         this.certificateAuthoritiesProperties = CertificateAuthoritiesProperties.defaultProperties(this.environment);
         this.withCrlCacheInMemory();
+        this.withPreloadedCrlCache();
         return this;
     }
 
@@ -73,6 +74,14 @@ public class SEID2CertificateValidatorBuilder {
      */
     public SEID2CertificateValidatorBuilder withCrlCacheInMemory() {
         this.crlCache = new SimpleCrlCache();
+        return this;
+    }
+
+    public SEID2CertificateValidatorBuilder withPreloadedCrlCache() {
+        Objects.requireNonNull(crlCache);
+        for (String crlDistributionPoint : this.certificateAuthoritiesProperties.getCrlDistributionPoints()) {
+            this.crlCache.set(crlDistributionPoint, X509CRLUtils.loadCRLFromClasspath(crlDistributionPoint, environment));
+        }
         return this;
     }
 
