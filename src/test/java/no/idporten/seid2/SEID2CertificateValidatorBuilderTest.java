@@ -6,6 +6,7 @@ import no.digdir.certvalidator.util.SimpleCrlCache;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.mockito.ArgumentCaptor;
 
 import java.nio.file.Path;
 
@@ -25,13 +26,27 @@ public class SEID2CertificateValidatorBuilderTest {
         );
     }
 
-    @DisplayName("then the default is to use environment specific properties and in-memory CRL cache")
+    @DisplayName("then the default is to use environment specific properties and in-memory pre-loded CRL cache")
     @Test
     void testBuildWithDefaults() throws Exception {
         SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
         SEID2CertificateValidator SEID2CertificateValidator = builder.build();
-        verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), any(SimpleCrlCache.class));
-        assertNotNull(SEID2CertificateValidator);
+        ArgumentCaptor<CertificateAuthoritiesProperties> propertiesCaptor = ArgumentCaptor.forClass(CertificateAuthoritiesProperties.class);
+        ArgumentCaptor<CrlCache> crlCacheCaptor = ArgumentCaptor.forClass(CrlCache.class);
+        verify(builder).createValidator(
+                eq(Environment.TEST),
+                propertiesCaptor.capture(),
+                crlCacheCaptor.capture()
+        );
+
+        assertAll(
+                () -> assertNotNull(SEID2CertificateValidator),
+                () -> assertEquals(CertificateAuthoritiesProperties.testProperties(), propertiesCaptor.getValue()),
+                () -> assertTrue(crlCacheCaptor.getValue() instanceof SimpleCrlCache)
+        );
+        for (String crlDistributionPoint : propertiesCaptor.getValue().getCrlDistributionPoints()) {
+            assertNotNull(crlCacheCaptor.getValue().get(crlDistributionPoint));
+        }
     }
 
     @DisplayName("then defaults can be set programmatically")

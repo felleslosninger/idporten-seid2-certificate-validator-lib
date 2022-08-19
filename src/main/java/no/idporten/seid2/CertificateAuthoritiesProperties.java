@@ -21,6 +21,7 @@ public class CertificateAuthoritiesProperties {
     private List<String> criticalExtensionsRequired = new ArrayList<>();
     private List<String> rootCertificates = new ArrayList<>();
     private List<String> intermediateCertificates = new ArrayList<>();
+    private List<String> crlDistributionPoints = new ArrayList<>();
 
     /**
      * Returns default properties for environment.
@@ -84,6 +85,9 @@ public class CertificateAuthoritiesProperties {
         certificateAuthoritiesProperties.setCriticalExtensionsRequired(List.of(
                 "2.5.29.15"
         ));
+        certificateAuthoritiesProperties.setCrlDistributionPoints(List.of(
+                "http://crl.test4.buypassca.com/BPCl3CaG2STBS.crl"
+        ));
         return certificateAuthoritiesProperties;
     }
 
@@ -133,6 +137,12 @@ public class CertificateAuthoritiesProperties {
         ));
         certificateAuthoritiesProperties.setCriticalExtensionsRequired(List.of(
                 "2.5.29.15"
+        ));
+        certificateAuthoritiesProperties.setCrlDistributionPoints(List.of(
+                "http://crl.buypass.no/crl/BPClass3CA3.crl",
+                "http://crl1.commfides.com/CommfidesEnterprise-SHA256.crl",
+                "http://crl2.commfides.com/CommfidesEnterprise-SHA256.crl",
+                "http://crl.buypassca.com/BPCl3CaG2STBS.crl"
         ));
         return certificateAuthoritiesProperties;
     }
