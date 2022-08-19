@@ -86,7 +86,9 @@ public class CertificateAuthoritiesProperties {
                 "2.5.29.15"
         ));
         certificateAuthoritiesProperties.setCrlDistributionPoints(List.of(
-                "http://crl.test4.buypassca.com/BPCl3CaG2STBS.crl"
+                "http://crl.test4.buypassca.com/BPCl3CaG2STBS.crl",
+                "http://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl",
+                "https://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl"
         ));
         return certificateAuthoritiesProperties;
     }
@@ -139,9 +141,11 @@ public class CertificateAuthoritiesProperties {
                 "2.5.29.15"
         ));
         certificateAuthoritiesProperties.setCrlDistributionPoints(List.of(
-                "http://crl.buypass.no/crl/BPClass3CA3.crl",
                 "http://crl1.commfides.com/CommfidesEnterprise-SHA256.crl",
                 "http://crl2.commfides.com/CommfidesEnterprise-SHA256.crl",
+                "http://crl.commfides.com/G3/CommfidesLegalPersonCA-G3.crl",
+                "https://crl.commfides.com/G3/CommfidesLegalPersonCA-G3.crl",
+                "http://crl.buypass.no/crl/BPClass3CA3.crl",
                 "http://crl.buypassca.com/BPCl3CaG2STBS.crl"
         ));
         return certificateAuthoritiesProperties;
