@@ -4,7 +4,7 @@ import no.digdir.certvalidator.util.CrlUtils;
 
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +20,7 @@ class X509CRLUtils {
      * URL-encode an url so it can be used as a filename.
      */
     static String toFilename(String url) {
-        return URLEncoder.encode(url, Charset.forName("UTF-8"));
+        return URLEncoder.encode(url, StandardCharsets.UTF_8);
     }
 
     /**
@@ -30,14 +30,14 @@ class X509CRLUtils {
      * @param environment environment
      */
     static void downloadCRLAndSaveToResources(Environment environment) {
-        try {
-            for (String crlDistributionPoint : CertificateAuthoritiesProperties.defaultProperties(environment).getCrlDistributionPoints()) {
+        for (String crlDistributionPoint : CertificateAuthoritiesProperties.defaultProperties(environment).getCrlDistributionPoints()) {
+            try {
                 X509CRL crl = CrlUtils.load(new URL(crlDistributionPoint).openStream());
-                Path path = Paths.get("src","main","resources","crl", environment.name(), toFilename(crlDistributionPoint));
+                Path path = Paths.get("src", "main", "resources", "crl", environment.name(), toFilename(crlDistributionPoint));
                 CrlUtils.save(Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING), crl);
+            } catch (Exception e) {
+                throw new SEID2CertificateValidatorInitException(String.format("Failed to download and save CRL %s", crlDistributionPoint), e);
             }
-        } catch (Exception e) {
-            throw new SEID2CertificateValidatorInitException("Failed to download and save CRL", e);
         }
     }
 
@@ -45,14 +45,14 @@ class X509CRLUtils {
      * Loads a CRL from classpath.
      *
      * @param distributionPointUrl url to distribution point.  The encoded url is the file name.
-     * @param environment environment for CRL.  The environment is used to find the directory for the CRL file.
+     * @param environment          environment for CRL.  The environment is used to find the directory for the CRL file.
      * @return CRL
      */
     static X509CRL loadCRLFromClasspath(String distributionPointUrl, Environment environment) {
         try {
             return CrlUtils.load(X509CRLUtils.class.getClassLoader().getResourceAsStream("crl/" + environment.name() + "/" + toFilename(distributionPointUrl)));
         } catch (Exception e) {
-            throw new SEID2CertificateValidatorInitException("Failed to load CRL from classpath", e);
+            throw new SEID2CertificateValidatorInitException(String.format("Failed to load CRL %s from classpath", distributionPointUrl), e);
         }
     }
 
