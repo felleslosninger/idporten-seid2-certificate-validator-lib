@@ -8,6 +8,7 @@ import no.digdir.certvalidator.api.ValidatorRule;
 import no.digdir.certvalidator.rule.*;
 import no.digdir.certvalidator.structure.AndJunction;
 import no.digdir.certvalidator.structure.OrJunction;
+import no.digdir.certvalidator.util.CachingCrlFetcher;
 import no.digdir.certvalidator.util.SimpleCertificateBucket;
 import no.digdir.certvalidator.util.SimplePrincipalNameProvider;
 
@@ -42,7 +43,7 @@ public class SEID2CertificateValidatorFactory {
                 .addRule(new CriticalExtensionRecognizedRule((certificateAuthoritiesProperties.getCriticalExtensionsRecognized().toArray(new String[0]))))
                 .addRule(new CriticalExtensionRequiredRule(certificateAuthoritiesProperties.getCriticalExtensionsRequired().toArray(new String[0])))
                 .addRule(createChainRule(environment, certificateAuthoritiesProperties))
-                .addRule(new CRLRule(crlCache))
+                .addRule(new CRLRule(new CachingCrlFetcher(crlCache)))
                 .build();
         return new SEID2CertificateValidator(validator);
     }

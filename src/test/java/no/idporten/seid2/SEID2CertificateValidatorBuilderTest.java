@@ -2,6 +2,7 @@ package no.idporten.seid2;
 
 import no.digdir.certvalidator.api.CrlCache;
 import no.digdir.certvalidator.util.DirectoryCrlCache;
+import no.digdir.certvalidator.util.SimpleAsyncCrlCache;
 import no.digdir.certvalidator.util.SimpleCrlCache;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ public class SEID2CertificateValidatorBuilderTest {
 
     @DisplayName("then an environment must be specified")
     @Test
-    void testEnvironmentMustBeSpecified() throws Exception {
+    void testEnvironmentMustBeSpecified() {
         NullPointerException e = assertThrows(NullPointerException.class, () -> new SEID2CertificateValidatorBuilder(null));
         assertAll(
                 () -> assertNotNull(e),
@@ -26,7 +27,7 @@ public class SEID2CertificateValidatorBuilderTest {
         );
     }
 
-    @DisplayName("then the default is to use environment specific properties and in-memory pre-loded CRL cache")
+    @DisplayName("then the default is to use environment specific properties and async in-memory pre-loaded CRL cache")
     @Test
     void testBuildWithDefaults() throws Exception {
         SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
@@ -42,7 +43,7 @@ public class SEID2CertificateValidatorBuilderTest {
         assertAll(
                 () -> assertNotNull(SEID2CertificateValidator),
                 () -> assertEquals(CertificateAuthoritiesProperties.testProperties(), propertiesCaptor.getValue()),
-                () -> assertTrue(crlCacheCaptor.getValue() instanceof SimpleCrlCache)
+                () -> assertTrue(crlCacheCaptor.getValue() instanceof SimpleAsyncCrlCache)
         );
         for (String crlDistributionPoint : propertiesCaptor.getValue().getCrlDistributionPoints()) {
             assertNotNull(crlCacheCaptor.getValue().get(crlDistributionPoint));
@@ -67,12 +68,12 @@ public class SEID2CertificateValidatorBuilderTest {
         assertNotNull(SEID2CertificateValidator);
     }
 
-    @DisplayName("then CRL cache strategy can be overridden to use disk")
+    @DisplayName("then CRL cache strategy can be overridden")
     @Test
     void testOverrideCRLCache(@TempDir Path cacheDir) throws Exception {
         SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
-        SEID2CertificateValidator SEID2CertificateValidator = builder.withCrlCacheOnDisk(cacheDir).build();
-        verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), any(DirectoryCrlCache.class));
+        SEID2CertificateValidator SEID2CertificateValidator = builder.withCrlCache(new DirectoryCrlCache(cacheDir)).build();
+        verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), isA(DirectoryCrlCache.class));
         assertNotNull(SEID2CertificateValidator);
     }
 
