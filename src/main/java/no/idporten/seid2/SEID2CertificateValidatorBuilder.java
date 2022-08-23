@@ -2,11 +2,8 @@ package no.idporten.seid2;
 
 
 import no.digdir.certvalidator.api.CrlCache;
-import no.digdir.certvalidator.util.DirectoryCrlCache;
-import no.digdir.certvalidator.util.SimpleCrlCache;
+import no.digdir.certvalidator.util.SimpleAsyncCrlCache;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Objects;
 
 /**
@@ -31,13 +28,14 @@ public class SEID2CertificateValidatorBuilder {
     }
 
     /**
-     * Sets default properties for environment and default in-memory CRL caching containing pre-laaded CRLs.
+     * Sets default properties for environment and default in-memory CRL caching containing pre-loaded CRLs and async
+     * CRL cache updates.
      *
      * @return builder with default values
      */
     public SEID2CertificateValidatorBuilder withDefaults() {
         this.certificateAuthoritiesProperties = CertificateAuthoritiesProperties.defaultProperties(this.environment);
-        this.withCrlCacheInMemory();
+        this.withAsyncInMemoryCrlCache(15 * 60 * 1000); // 15 minutes
         this.withPreloadedCrlCache();
         return this;
     }
@@ -56,29 +54,30 @@ public class SEID2CertificateValidatorBuilder {
     }
 
     /**
-     * Sets CRL caching to use disk as backup for in-memory cache.
+     * Sets CRL caching strategy.  Use this to override defaults.
      *
-     * @param folder cache folder
-     * @return builder with disk CRL cache
-     * @throws IOException if path is not correct
+     * It's a good ide to call {@link #withPreloadedCrlCache()} when overriding the default cache.
+     *
+     * @param crlCache CRL cache
+     * @return builder with CRL cache
      */
-    public SEID2CertificateValidatorBuilder withCrlCacheOnDisk(Path folder) throws IOException {
-        this.crlCache = new DirectoryCrlCache(Objects.requireNonNull(folder, "Specify folder"));
+    public SEID2CertificateValidatorBuilder withCrlCache(CrlCache crlCache) {
+        this.crlCache = Objects.requireNonNull(crlCache);
         return this;
     }
 
     /**
-     * Sets CRL caching to in-memory.  This is the default setting.
+     * Sets CRL caching to in-memory with async updates.  This is a default setting.
      *
      * @return builder with in-memory CRL cache
      */
-    public SEID2CertificateValidatorBuilder withCrlCacheInMemory() {
-        this.crlCache = new SimpleCrlCache();
+    public SEID2CertificateValidatorBuilder withAsyncInMemoryCrlCache(long cacheRefreshIntervalMillis) {
+        this.crlCache = new SimpleAsyncCrlCache(cacheRefreshIntervalMillis);
         return this;
     }
 
     /**
-     * Pre-loads CRL cache with known CRLs.
+     * Pre-loads CRL cache with known CRLs.  This is a default setting.
      *
      * @return builder with data in CRL cache
      */
