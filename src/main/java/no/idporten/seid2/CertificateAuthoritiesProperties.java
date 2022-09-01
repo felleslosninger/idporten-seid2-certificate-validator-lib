@@ -90,8 +90,9 @@ public class CertificateAuthoritiesProperties {
         certificateAuthoritiesProperties.setCrlDistributionPoints(List.of(
                 "http://crl.test4.buypassca.com/BPCl3CaG2STBS.crl",
                 "http://crl.test4.buypass.no/crl/BPClass3T4CA3.crl",
-                "http://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl",
-                "https://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl"
+                "http://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl"
+// TODO ta inn når commfides fikser tls-certet sitt, som er expired 31. august 2022
+//  "https://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl"
         ));
         return certificateAuthoritiesProperties;
     }
