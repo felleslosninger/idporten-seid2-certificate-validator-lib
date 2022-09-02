@@ -75,6 +75,8 @@ public class CertificateAuthoritiesProperties {
                 "2.16.578.1.26.1.0.3.2",
                 "2.16.578.1.29.913.1.1.0",
                 "2.16.578.1.29.913.200.1.0",
+                "2.16.578.1.29.913.210.1.0",
+                "2.16.578.1.29.913.220.1.0",
                 "2.16.578.1.1.1.1.100",
                 "2.16.578.1.26.1.3.2"
         ));
@@ -88,8 +90,9 @@ public class CertificateAuthoritiesProperties {
         certificateAuthoritiesProperties.setCrlDistributionPoints(List.of(
                 "http://crl.test4.buypassca.com/BPCl3CaG2STBS.crl",
                 "http://crl.test4.buypass.no/crl/BPClass3T4CA3.crl",
-                "http://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl",
-                "https://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl"
+                "http://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl"
+// TODO ta inn når commfides fikser tls-certet sitt, som er expired 31. august 2022
+//  "https://crl.test.commfides.com/G3/CommfidesLegalPersonCA-G3-TEST.crl"
         ));
         return certificateAuthoritiesProperties;
     }
@@ -130,6 +133,7 @@ public class CertificateAuthoritiesProperties {
                 "2.16.578.1.29.13.200",
                 "2.16.578.1.29.13.210.1.0",
                 "2.16.578.1.29.13.210",
+                "2.16.578.1.29.13.220.1.0",
                 // Commfides Enterprise Class 3
                 "2.16.578.1.29.13.1.1.0",
                 "2.16.578.1.29.13.1"
