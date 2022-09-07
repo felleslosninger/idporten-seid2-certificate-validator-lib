@@ -1,6 +1,7 @@
 package no.idporten.seid2;
 
 
+import no.digdir.certvalidator.api.AsyncCrlCache;
 import no.digdir.certvalidator.api.CrlCache;
 import no.digdir.certvalidator.util.SimpleAsyncCrlCache;
 
@@ -98,6 +99,9 @@ public class SEID2CertificateValidatorBuilder {
     public SEID2CertificateValidator build() throws Exception {
         Objects.requireNonNull(certificateAuthoritiesProperties);
         Objects.requireNonNull(crlCache);
+        if (crlCache instanceof AsyncCrlCache) {
+            ((AsyncCrlCache) crlCache).start();
+        }
         return createValidator(environment, certificateAuthoritiesProperties, crlCache);
     }
 

@@ -1,5 +1,6 @@
 package no.idporten.seid2;
 
+import no.digdir.certvalidator.api.AsyncCrlCache;
 import no.digdir.certvalidator.api.CrlCache;
 import no.digdir.certvalidator.util.DirectoryCrlCache;
 import no.digdir.certvalidator.util.SimpleAsyncCrlCache;
@@ -74,6 +75,17 @@ public class SEID2CertificateValidatorBuilderTest {
         SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
         SEID2CertificateValidator SEID2CertificateValidator = builder.withCrlCache(new DirectoryCrlCache(cacheDir)).build();
         verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), isA(DirectoryCrlCache.class));
+        assertNotNull(SEID2CertificateValidator);
+    }
+
+    @DisplayName("then async CRL cache are started on build")
+    @Test
+    void testStartAsyncCRLCacheOnBuild() throws Exception {
+        SEID2CertificateValidatorBuilder builder = spy(new SEID2CertificateValidatorBuilder(Environment.TEST));
+        AsyncCrlCache crlCache = mock(AsyncCrlCache.class);
+        SEID2CertificateValidator SEID2CertificateValidator = builder.withCrlCache(crlCache).build();
+        verify(builder).createValidator(eq(Environment.TEST), eq(CertificateAuthoritiesProperties.testProperties()), eq(crlCache));
+        verify(crlCache).start();
         assertNotNull(SEID2CertificateValidator);
     }
 
