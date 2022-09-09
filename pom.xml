@@ -12,7 +12,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <eid.certvalidator.version>1.0.0</eid.certvalidator.version>
+        <eid.certvalidator.version>1.0.1</eid.certvalidator.version>
         <eid-certificate-generator.version>1.0.1</eid-certificate-generator.version>
         <junit-jupiter-version>5.9.0</junit-jupiter-version>
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
