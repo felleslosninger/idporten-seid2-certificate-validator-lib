@@ -89,24 +89,4 @@ public class SEID2CertificateValidatorBuilderTest {
         assertNotNull(SEID2CertificateValidator);
     }
 
-    @DisplayName("then default intermediate certificates for prod are valid")
-    @Test
-    void testValidProdIntermediateCertificates() throws Exception {
-        SEID2CertificateValidator SEID2CertificateValidator = new SEID2CertificateValidatorBuilder(Environment.PROD).build();
-        CertificateAuthoritiesProperties prodProperties = CertificateAuthoritiesProperties.prodProperties();
-        for (String cert : prodProperties.getIntermediateCertificates()) {
-            assertDoesNotThrow(() -> SEID2CertificateValidator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
-        }
-    }
-
-    @DisplayName("then default intermediate certificates for test are valid")
-    @Test
-    void testValidTestIntermediateCertificates() throws Exception {
-        SEID2CertificateValidator SEID2CertificateValidator = new SEID2CertificateValidatorBuilder(Environment.TEST).build();
-        CertificateAuthoritiesProperties testProperties = CertificateAuthoritiesProperties.testProperties();
-        for (String cert : testProperties.getIntermediateCertificates()) {
-            assertDoesNotThrow(() -> SEID2CertificateValidator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
-        }
-    }
-
 }
