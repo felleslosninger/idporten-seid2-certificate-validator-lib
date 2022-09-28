@@ -3,8 +3,8 @@ package no.idporten.seid2;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Properties for certificate authorities.  Used to configure root and intermediate certificates for trusted certificate
@@ -17,12 +17,12 @@ import java.util.List;
 @EqualsAndHashCode
 public class CertificateAuthoritiesProperties {
 
-    private List<String> policies = new ArrayList<>();
-    private List<String> criticalExtensionsRecognized = new ArrayList<>();
-    private List<String> criticalExtensionsRequired = new ArrayList<>();
-    private List<String> rootCertificates = new ArrayList<>();
-    private List<String> intermediateCertificates = new ArrayList<>();
-    private List<String> crlDistributionPoints = new ArrayList<>();
+    private Set<String> policies = new HashSet<>();
+    private Set<String> criticalExtensionsRecognized = new HashSet<>();
+    private Set<String> criticalExtensionsRequired = new HashSet<>();
+    private Set<String> rootCertificates = new HashSet<>();
+    private Set<String> intermediateCertificates = new HashSet<>();
+    private Set<String> crlDistributionPoints = new HashSet<>();
 
     /**
      * Returns default properties for environment.
@@ -42,7 +42,7 @@ public class CertificateAuthoritiesProperties {
      */
     public static CertificateAuthoritiesProperties testProperties() {
         CertificateAuthoritiesProperties certificateAuthoritiesProperties = new CertificateAuthoritiesProperties();
-        certificateAuthoritiesProperties.setRootCertificates(List.of(
+        certificateAuthoritiesProperties.setRootCertificates(Set.of(
                 // CN=Buypass Class 3 Test4 Root CA,O=Buypass AS-983163327,C=NO
                 "MIIFZTCCA02gAwIBAgIBAjANBgkqhkiG9w0BAQsFADBUMQswCQYDVQQGEwJOTzEdMBsGA1UECgwUQnV5cGFzcyBBUy05ODMxNjMzMjcxJjAkBgNVBAMMHUJ1eXBhc3MgQ2xhc3MgMyBUZXN0NCBSb290IENBMB4XDTEwMTAwNjIzMDAwMFoXDTQwMTAwNjIzMDAwMFowVDELMAkGA1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSYwJAYDVQQDDB1CdXlwYXNzIENsYXNzIDMgVGVzdDQgUm9vdCBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAJgn6Yw/uPsQd3hXph48JqWO59Dui15s2J0udgvSnaAx8yIv6GKZlDnYVmUbmeJQxkcnYFoAGessqQfSBi3Wu+JANVHwPnuEGCPTNATGrYTw6Dq6WE0dlNfFlgBgtcT05yCRtQDHchFde1G9wl7mWIdTVx74gIr2ut+YaHd+XJYEvesrETYcp+BA7N8JFCW6I3CSPoZ7NRRxd996on+Vd+Knf37lR3Y+FzSAV6SvjY7jvdlZsMopYxXm3U6noVvc54Q+WO94rxoe8pt7ou/siwBH+fHzJ7JMIVNZqP/cJWe6oCEKlh+Od4ctiC9kNKdISE2j7EbhLyHT9SzUOft9oJTnC0S7oWsPMCYhEUpXfVTbs7vWRRF8pS/Kpn8kHGze/RFn/rkKIFOlmr/at4nRwB2jgXeINKHNULz2bZeSJ/7wCglXIOxgsGeqyYEsILnUsYqV1y9AKWsZdKS+GlGRsHibUYpr739+qN86YayQlMLFD+bVndH200NVoy5f17SuVqtG231VjV2mGIOwPRpq5eLPHqPcNhujkOmXS1HMDJJOL1gOGwvINy1SJU7RTCDA0oc0jNKIqOjJLyiTUwO+kzu6nbY3LqaxhwgCrZGVado0DQWE+wHu0g2O7QwiuNRX5wkraWwPAc5Q0wSaBl/yx158V9hh6GPtjM7QRc/pMn5DAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFO20zz97Ixh2OsatsmsAXXrGiNbrMA4GA1UdDwEB/wQEAwIBBjANBgkqhkiG9w0BAQsFAAOCAgEAKMKFZqTVp9hEkqUfQZvxekzD1hGYSf77aj8lwVk/5E1B2lHVotTzkq7kuvFLtFxU6qR6H1Pn5o0BuEVi9S7RpD3TNXQPYVda2ZBOrYgGUKD7NzNPyWW+vDobOKNlLUfwsnjuCXKQSo/t57z5FYLPfOx1gmluIehc2ml3Wf9R+0WTjTSMn0k3Hzy/CqidUJ2vpm/5u5x0wXxrIY3Kg+9IdoWj1aesbLL5sOdvgKDzczDqDmt1uY9CDkXuPD/qGtW0AdVIftmnxb6JTn2wQ6JSMrGnlY6BsUujqNPoeVqy8udQ+ckUgzJzhZ6jpRHqq7aP8JbpVx3KZw7LmSdMrwSZaZZfMa9OK2G1Kb9XPVKPB5/KWS9de+JJEXVjqgK/2VMU66y/PRZqV2C83xTSZEE47P3b8EU9qyM7Kii/e8UEGRQR2Q2i2tRp1yHBzwekKZgtYzA0poGVj7NWnCAm0OlCWyBP47MyiMS4npqNYf8wMhRy4fTY+yy5ORJp5Fc08/VbTt62CPpwqh06S7H05Z+IzRroG9yp0NBy6Z17/db3JnosbfnHdyFlZqze2ILjMdBwM/edPQgGqhpgn2UDNTE8SmVLDmnq0hGBR9sAA0XedFjA0Cvxi7AlX4Bb9MuAQzrfTcFikvJmvmUY4+935G70lrW1oSXZugFqgAM8FVJP1pY=",
                 // C=NO,O=Commfides Norge AS - 988 312 495,OU=CPN Primary Certificate Authority TEST,OU=CPN TEST - For authorized use only,
@@ -53,7 +53,7 @@ public class CertificateAuthoritiesProperties {
                 // CN=Commfides Root CA - G3 - TEST,2.5.4.97=NTRNO-988312495,O=Commfides Norge AS,C=NO
                 "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"
         ));
-        certificateAuthoritiesProperties.setIntermediateCertificates(List.of(
+        certificateAuthoritiesProperties.setIntermediateCertificates(Set.of(
                 // CN=Buypass Class 3 Test4 CA 3,O=Buypass AS-983163327,C=NO
                 "MIIE3zCCAsegAwIBAgIBITANBgkqhkiG9w0BAQsFADBUMQswCQYDVQQGEwJOTzEdMBsGA1UECgwUQnV5cGFzcyBBUy05ODMxNjMzMjcxJjAkBgNVBAMMHUJ1eXBhc3MgQ2xhc3MgMyBUZXN0NCBSb290IENBMB4XDTEyMDIxNjA3MDAwMFoXDTMyMDIxNjA3MDAwMFowUTELMAkGA1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSMwIQYDVQQDDBpCdXlwYXNzIENsYXNzIDMgVGVzdDQgQ0EgMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL+O+sVB04JWLWOwBqDZwSeNK4qgXG0JG0VbEVQXF7F9VYoDOVV7urPotkVktJr6n30BfRxsTrWylhREFAnplK1RLYA3OuI6pWO2ASC1/EbLZP1GqHARG8gMiQbUJHc0LpgjreN495QN0NYfKUPyUKxaTW3fGpbzNnxL5djPZsDyG5OnK5XGZLA7nXaILVUj8aKwNfOonckHF1VvcKpY2aIIh6isBaQQnRvrifAKi1CeiZVZEcxxXyKmTIC0U6WQiiOS6FgGLLVth88tQVhRuAcccJV41p9z96vmzMqRs9YfJepiVx1ris4I4YMQzN5tajGU9qktX+ngUPatoMLcioMCAwEAAaOBvjCBuzAPBgNVHRMBAf8EBTADAQH/MB8GA1UdIwQYMBaAFO20zz97Ixh2OsatsmsAXXrGiNbrMB0GA1UdDgQWBBQ/rvV4C5KjcCA1X1r69ySgUgHwQTAOBgNVHQ8BAf8EBAMCAQYwEQYDVR0gBAowCDAGBgRVHSAAMEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwudGVzdDQuYnV5cGFzcy5uby9jcmwvQlBDbGFzczNUNFJvb3RDQS5jcmwwDQYJKoZIhvcNAQELBQADggIBAB+6cFmLHB5mpmB+XsjhWxTkhPTnj3lnLMz0LKXyvc5+SeB4Id9NycDBJ4bK/auvGKTAwebIl1lS3nzUAb1AcWypiJoxvEvbDJyh+n5305csFtBx9pUSeUrWX7FvXN0eOnBxUnTboI+sUODXA2o47O/QwfJnTy6/NnNA535BU7J2trxTugU2GQxdMTgqJGVs+5LYAIRRIIG1zdfsUPiLWc+4d4Fy/tcAD82vgInA7PTW/VdDSxuypL4BYA8T5iicEkgrYxZPw6CIKz0EaQseb2oGJ9IilyvPLz/INTjiGIGjkkdGNYLPNvhfKqHG0V2vXI45e55v/jZNLFcnudsuzHdYF1pCKvsQH7ZiWiflVwV2yr9Nm+WwwjrpgSpFyyNyqKawG3jIgkLd9Vxecs262uT4v3E19JIgBJ7FiRFJgGGcJbAwlhiAY3iNi+Yoykz8dZuHVMZ59YeC/WjO1nCXY+PZQbAsuQCxub3ZW1rNWZxxezps2ZsNiGhVWlZVy0RoCXpxvyyewjdEgDfRPktr3TOIntQlmh6BvPnj0NJm53lx5SZKyyH9XHvdLOFawWeBkm2zFWNhJhIdIXXCQS+GH2xC1PBxteSNWcrl1kMt1HJ6NLV+Dsi2DQMR7JmLJJjv1jyjBS1ZLa81Of5Yyr3rKawYE9LlcZOpaeMAHkrPNFF8",
                 // C=NO, organizationIdentifier=NTRNO-983163327, O=Buypass AS, CN=Buypass Class 3 Test4 CA G2 ST Business
@@ -68,7 +68,7 @@ public class CertificateAuthoritiesProperties {
                 // CN=Commfides Legal Person - G3 - TEST,2.5.4.97=NTRNO-988312495,O=Commfides Norge AS,C=NO
                 "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"
         ));
-        certificateAuthoritiesProperties.setPolicies(List.of(
+        certificateAuthoritiesProperties.setPolicies(Set.of(
                 "2.16.578.1.26.1.3.5",
                 "2.16.578.1.29.13.1.1.0",
                 "2.16.578.1.26.1.3.2",
@@ -77,17 +77,16 @@ public class CertificateAuthoritiesProperties {
                 "2.16.578.1.29.913.200.1.0",
                 "2.16.578.1.29.913.210.1.0",
                 "2.16.578.1.29.913.220.1.0",
-                "2.16.578.1.1.1.1.100",
-                "2.16.578.1.26.1.3.2"
+                "2.16.578.1.1.1.1.100"
         ));
-        certificateAuthoritiesProperties.setCriticalExtensionsRecognized(List.of(
+        certificateAuthoritiesProperties.setCriticalExtensionsRecognized(Set.of(
                 "2.5.29.15",
                 "2.5.29.19"
         ));
-        certificateAuthoritiesProperties.setCriticalExtensionsRequired(List.of(
+        certificateAuthoritiesProperties.setCriticalExtensionsRequired(Set.of(
                 "2.5.29.15"
         ));
-        certificateAuthoritiesProperties.setCrlDistributionPoints(List.of(
+        certificateAuthoritiesProperties.setCrlDistributionPoints(Set.of(
                 "http://crl.test4.buypassca.com/BPCl3CaG2STBS.crl",
                 "http://crl.test4.buypassca.com/BPCl3RootCaG2ST.crl",
                 "http://crl.test4.buypass.no/crl/BPClass3T4CA3.crl",
@@ -99,7 +98,7 @@ public class CertificateAuthoritiesProperties {
 
     public static CertificateAuthoritiesProperties prodProperties() {
         CertificateAuthoritiesProperties certificateAuthoritiesProperties = new CertificateAuthoritiesProperties();
-        certificateAuthoritiesProperties.setRootCertificates(List.of(
+        certificateAuthoritiesProperties.setRootCertificates(Set.of(
                 // CN=Buypass Class 3 Root CA,O=Buypass AS-983163327,C=NO
                 "MIIFWTCCA0GgAwIBAgIBAjANBgkqhkiG9w0BAQsFADBOMQswCQYDVQQGEwJOTzEdMBsGA1UECgwUQnV5cGFzcyBBUy05ODMxNjMzMjcxIDAeBgNVBAMMF0J1eXBhc3MgQ2xhc3MgMyBSb290IENBMB4XDTEwMTAyNjA4Mjg1OFoXDTQwMTAyNjA4Mjg1OFowTjELMAkGA1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSAwHgYDVQQDDBdCdXlwYXNzIENsYXNzIDMgUm9vdCBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAKXaCpUWUOOV8l6ddjEGMnqb8RB2uACatVI2zSRHsJ8YZLya9vrVediQYkwiL944PdbgqOkcLNt4EemOaFEVcsfzM4fkoF0LXOBXByow9c3EN3coTRiR5r/VUv1xLXA+58bEiuPwKAv0dpihi4dVsjoT/Lc+JzeOIuOoTyrvYLs9tznDDgFHmV0ST9tD+leh7fmdvhFHJlsTmKtdFoqwNxxXnUX/iJY2v7vKB3tvh2PX0DJq1l1sDPGzbjniazEuOQAnFN44wOwZZoYS6J1yFhNkUsepNxz9gjDthBgd9K5c/3ATAOux9TN6S9ZV+AWNS2mw9bMoNlwUxFFzTWsL8TQH2xc519woe2v1n/MuwU8XKhDzzMro6/1rqy6any2CbgTUUgGTLT2G/H783+9CHaZr77kgxve9oKeV/afmiSTYzIw0bOIjL9kSGiG5VZFvC5F5GQytQIgLcOJ60g7YaEi7ghM5EFjp2CoHxhLbWNvSO1UQRwUVZ2J+GGOmRj8JDlQyXr8NYnon74Do29lLBlo3WiXQCBJ31G8JUJc9yB3D34xFMFbG02SrZvPAXpacw8Tvw3xrizp5f7NJzz3iiZ+gMEuFuZyUJHmPfWupRWgPK9Dx2hzLabjKSWJtyNBjYt1gD1iqj6G8BaVmos8bdrKEZLFMOVLAMLrwjEsCsLa3AgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFEe4zf/lb+74suwvTg75JbCOPGvDMA4GA1UdDwEB/wQEAwIBBjANBgkqhkiG9w0BAQsFAAOCAgEAACAjQTUEkMJAYmDv4jVM1z+s4jSQuKFvdvoWFqRINyzpkMLyPPgKn9iB5btb2iUspKdVcSQy9sgL8rxq+JOssgfCX5/bzMiKqr5qb+FJEMwx14C7u8jYog5kV+qi9cKpMRXSIGrs/CIBKM+GuIAeqcwRpTzyFrNHnfzSgCHEy9BHcEGhyoMZCCxt8l13nIoUE9Q2HJLw5QY33KbmkJs4j1xrG0aGQ0JfPgEHU1RdZX33inOhmlRaHylDFCfChQ+1iHsaO5S3HWCntZznKWlXWpuTekMwGwPXYshApqr8ZORK15FTAaggiG6cX0S5y2CBNOxv033aSF/rtJC8LakcC6wc1aJoIIAE1vyxjy+7SjENSoYc6+I2KSb12tjE8nVhz36udmNKekBlk4f4HoCMhuWG1o8O/FMsYOgWYRqiPkN7zTlgVGr18okmAWiDSKIz6MkEkbIRNBE+6tBDGR8Dk5AM/1E9V/RBbuHLoL7ryWPNbczk+DaqaJ3tvV2XcEQNtg413OEMXbugUZTLfhbrES+jkkXITHHZvMmZUldGL1DPvTVp9D0VzgalLA8+9oG6lLvDu79leNKGef9JOxqDDPDeeOzI8k1MGt6CKfjBWtrt7uYnXuhF0J0cUahoq0Tj0Itq4/g7u9xN12TyUb7mqqta6THuBrxzvxNiCp/HuZc=",
                 // C=NO,O=Commfides Norge AS - 988 312 495,
@@ -112,7 +111,7 @@ public class CertificateAuthoritiesProperties {
                 // CN=Commfides Root CA - G3,2.5.4.97=NTRNO-988312495,O=Commfides Norge AS,C=NO
                 "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"
         ));
-        certificateAuthoritiesProperties.setIntermediateCertificates(List.of(
+        certificateAuthoritiesProperties.setIntermediateCertificates(Set.of(
                 // CN=Buypass Class 3 CA 3,O=Buypass AS-983163327,C=NO
                 "MIIEyzCCArOgAwIBAgIBHjANBgkqhkiG9w0BAQsFADBOMQswCQYDVQQGEwJOTzEdMBsGA1UECgwUQnV5cGFzcyBBUy05ODMxNjMzMjcxIDAeBgNVBAMMF0J1eXBhc3MgQ2xhc3MgMyBSb290IENBMB4XDTEyMDkyNTA4MDUxOVoXDTMyMDkyNTA4MDUxOVowSzELMAkGA1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MR0wGwYDVQQDDBRCdXlwYXNzIENsYXNzIDMgQ0EgMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAON6Gk4TsoAn39gyUXBUfjcLNaq1FLlq2mSqt7l4EUALQfwfw//3jcKPb70rGYD1Mw46shRoL2gFJP3mD5FYe+5pAKqJ1VRdFb/qO/HnYPPBx2vzbEJgOafCuBX6wEMJc0O8cTsv/MqLvW8K88S+ziZcTSXMo95XkYGcYyaQiS5PR1mzATTvA/Xm811oCI8jZD2ZjSQ8KhB8ePaRNJTiOK/xYhqSvU9Un7i83NDSAeliZYW6asJ7g2DUcFWDytHvRJQtvd6tTxn+PUThC+IlgDJc6riJaIhYBqENID6LsBLdkSGIKsxVDsjDOZ3568D1XaRH9Wlo6Hj0792Ncu7AqZUCAwEAAaOBtjCBszAPBgNVHRMBAf8EBTADAQH/MB8GA1UdIwQYMBaAFEe4zf/lb+74suwvTg75JbCOPGvDMB0GA1UdDgQWBBTMw/gHt5xtek71pysdBfmzRxyR0TAOBgNVHQ8BAf8EBAMCAQYwEQYDVR0gBAowCDAGBgRVHSAAMD0GA1UdHwQ2MDQwMqAwoC6GLGh0dHA6Ly9jcmwuYnV5cGFzcy5uby9jcmwvQlBDbGFzczNSb290Q0EuY3JsMA0GCSqGSIb3DQEBCwUAA4ICAQAJEHvXHhjk5VKHDDvh5R3eaNjLNXwK9FQ65TIjkeciZcO53wHqumFBJX0fI7bYOthY1RZQElyefhn9SQlNDiPYrGwfbv94A1RQq8WHFpafUHoGjgmorgHoCRm/JKAjuFvE5NYc1EW2h8rAtg2apNRXe+TrTfLHH4gNYD6+Rd9L7zI6RQRgO11lmaWmC5C6VdBJfOtX/gCjpjOwhb9RXwKdGXlbCgpLlv5dhMcSjgxz7NJW3sjyWIhelt5vr7iK+3Xqe1mTA869l8rb7eDXHpavH/fOQYlHNWDSJQBkA6nbPpYwTy0FWOEdSTrrsb0NLyiF6snEzMyoMIfezj1yZJO+ATnZXeIsnrIRW5kL2BmHG0FJ7Up/zq89trNh8eYFE2wPYKhAM3UZNT0jzLLpabJQEFCqoX3XEPYyAIYJzGbvnCYAPesy88MY9gZBVTCfNuyJr1qrFn2B+fCwwD1ZCOcg3FHr0K601z+v4KWB19T1ui81cNWdadchU3UxH3i5ZJIi8z8abzj8E8l4sl5SD8iyUW58OF+bScx+P+RG2+DPw7uHbqItCYlpl/+YXhKCeGbZ/mI4xHipWuuamnYzZcD1TJ2g+0J9aqLavrBrnhtR0tWS2gmds5G4yNxROB1uQLZPFswq7WjfCUK3A8RrnNGcGPaCOf4BAou0GAiGo8kWwg==",
                 // C=NO,O=Commfides Norge AS - 988 312 495,OU=Commfides Trust Environment (c) 2011 Commfides Norge AS,
@@ -125,7 +124,7 @@ public class CertificateAuthoritiesProperties {
                 // CN=Buypass Class 3 Root CA G2 ST,O=Buypass AS,2.5.4.97=NTRNO-983163327,C=NO
                 "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"
         ));
-        certificateAuthoritiesProperties.setPolicies(List.of(
+        certificateAuthoritiesProperties.setPolicies(Set.of(
                 "2.16.578.1.26.1.3.5",
                 "2.16.578.1.26.1.3.2",
                 // Commfides Legal Person - G3
@@ -138,14 +137,14 @@ public class CertificateAuthoritiesProperties {
                 "2.16.578.1.29.13.1.1.0",
                 "2.16.578.1.29.13.1"
         ));
-        certificateAuthoritiesProperties.setCriticalExtensionsRecognized(List.of(
+        certificateAuthoritiesProperties.setCriticalExtensionsRecognized(Set.of(
                 "2.5.29.15",
                 "2.5.29.19"
         ));
-        certificateAuthoritiesProperties.setCriticalExtensionsRequired(List.of(
+        certificateAuthoritiesProperties.setCriticalExtensionsRequired(Set.of(
                 "2.5.29.15"
         ));
-        certificateAuthoritiesProperties.setCrlDistributionPoints(List.of(
+        certificateAuthoritiesProperties.setCrlDistributionPoints(Set.of(
                 "http://crl1.commfides.com/CommfidesEnterprise-SHA256.crl",
                 "http://crl2.commfides.com/CommfidesEnterprise-SHA256.crl",
                 "http://crl.commfides.com/G3/CommfidesLegalPersonCA-G3.crl",

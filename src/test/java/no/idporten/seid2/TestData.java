@@ -22,9 +22,9 @@ import java.security.cert.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
+import java.util.Set;
 
 import static no.idporten.seid2.X509CertificateUtils.pemEncodedCert;
 
@@ -84,11 +84,11 @@ public class TestData {
 
     public CertificateAuthoritiesProperties props() throws Exception {
         CertificateAuthoritiesProperties props = new CertificateAuthoritiesProperties();
-        props.setPolicies(Arrays.asList("2.16.578.1.1.1.1.100"));
-        props.setCriticalExtensionsRecognized(Arrays.asList("2.5.29.15", "2.5.29.19"));
-        props.setCriticalExtensionsRequired(Arrays.asList("2.5.29.15"));
-        props.setIntermediateCertificates(Arrays.asList(pemEncodedCert(intermediate.getCertificate())));
-        props.setRootCertificates(Arrays.asList(pemEncodedCert(intermediate.getCertificateChain()[0])));
+        props.setPolicies(Set.of("2.16.578.1.1.1.1.100"));
+        props.setCriticalExtensionsRecognized(Set.of("2.5.29.15", "2.5.29.19"));
+        props.setCriticalExtensionsRequired(Set.of("2.5.29.15"));
+        props.setIntermediateCertificates(Set.of(pemEncodedCert(intermediate.getCertificate())));
+        props.setRootCertificates(Set.of(pemEncodedCert(intermediate.getCertificateChain()[0])));
         return props;
     }
 
