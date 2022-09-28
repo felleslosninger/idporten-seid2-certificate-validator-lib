@@ -14,8 +14,8 @@ import no.digdir.certvalidator.util.SimplePrincipalNameProvider;
 
 import java.io.IOException;
 import java.security.cert.CertificateException;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Factory creating validator instances. Load certificates and create rules.  Consider using the builder for easy
@@ -69,7 +69,7 @@ public class SEID2CertificateValidatorFactory {
         return chainRule;
     }
 
-    private static CertificateBucket getCertificateBucket(List<String> certs) throws IOException, CertificateException {
+    private static CertificateBucket getCertificateBucket(Set<String> certs) throws IOException, CertificateException {
         SimpleCertificateBucket bucket = new SimpleCertificateBucket();
         for (String cert : certs) {
             bucket.add(X509CertificateUtils.readX509Certificate(cert));
