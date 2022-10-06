@@ -6,11 +6,8 @@ import no.digdir.certvalidator.api.CertificateBucket;
 import no.digdir.certvalidator.api.CrlCache;
 import no.digdir.certvalidator.api.ValidatorRule;
 import no.digdir.certvalidator.rule.*;
-import no.digdir.certvalidator.structure.AndJunction;
-import no.digdir.certvalidator.structure.OrJunction;
 import no.digdir.certvalidator.util.CachingCrlFetcher;
 import no.digdir.certvalidator.util.SimpleCertificateBucket;
-import no.digdir.certvalidator.util.SimplePrincipalNameProvider;
 
 import java.io.IOException;
 import java.security.cert.CertificateException;
@@ -20,6 +17,7 @@ import java.util.Set;
 /**
  * Factory creating validator instances. Load certificates and create rules.  Consider using the builder for easy
  * setup.
+ *
  * @see SEID2CertificateValidatorBuilder
  */
 public class SEID2CertificateValidatorFactory {
@@ -27,9 +25,9 @@ public class SEID2CertificateValidatorFactory {
     /**
      * Creates a validator.
      *
-     * @param environment environment
+     * @param environment                      environment
      * @param certificateAuthoritiesProperties properties (certificates and policies)
-     * @param crlCache CRL cache implementation
+     * @param crlCache                         CRL cache implementation
      * @return certificate validator
      * @throws Exception if create fails
      */
@@ -49,24 +47,10 @@ public class SEID2CertificateValidatorFactory {
     }
 
     private ValidatorRule createChainRule(Environment environment, CertificateAuthoritiesProperties certificateAuthoritiesProperties) throws IOException, CertificateException {
-        final ValidatorRule chainRule;
-        switch (environment) {
-            case TEST:
-                //Ignoring validation of policies of Commfides certificates in test ca chains.
-                ValidatorRule buypassChainRule = new ChainRule(getCertificateBucket(certificateAuthoritiesProperties.getRootCertificates()), getCertificateBucket(certificateAuthoritiesProperties.getIntermediateCertificates()), certificateAuthoritiesProperties.getPolicies().toArray(new String[0]));
-                ValidatorRule commfidesChainRule = new ChainRule(getCertificateBucket(certificateAuthoritiesProperties.getRootCertificates()), getCertificateBucket(certificateAuthoritiesProperties.getIntermediateCertificates()));
-                PrincipalNameRule commfidesIssuerRule = new PrincipalNameRule("O", new SimplePrincipalNameProvider("Commfides Norge AS - 988 312 495"), PrincipalNameRule.Principal.ISSUER);
-                AndJunction commfidesChainValidationJunction = new AndJunction(commfidesIssuerRule, commfidesChainRule);
-                chainRule = new OrJunction(commfidesChainValidationJunction, buypassChainRule);
-                break;
-            case PROD:
-            default:
-                chainRule = new ChainRule(
-                        getCertificateBucket(certificateAuthoritiesProperties.getRootCertificates()),
-                        getCertificateBucket(certificateAuthoritiesProperties.getIntermediateCertificates()),
-                        certificateAuthoritiesProperties.getPolicies().toArray(new String[0]));
-        }
-        return chainRule;
+        return new ChainRule(
+                getCertificateBucket(certificateAuthoritiesProperties.getRootCertificates()),
+                getCertificateBucket(certificateAuthoritiesProperties.getIntermediateCertificates()),
+                certificateAuthoritiesProperties.getPolicies().toArray(new String[0]));
     }
 
     private static CertificateBucket getCertificateBucket(Set<String> certs) throws IOException, CertificateException {
