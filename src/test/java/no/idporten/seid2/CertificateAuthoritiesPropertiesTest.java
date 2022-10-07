@@ -1,6 +1,10 @@
 package no.idporten.seid2;
 
 
+import no.digdir.certvalidator.Validator;
+import no.digdir.certvalidator.ValidatorBuilder;
+import no.digdir.certvalidator.rule.ExpirationRule;
+import no.digdir.certvalidator.rule.SigningRule;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -54,21 +58,29 @@ public class CertificateAuthoritiesPropertiesTest {
     @Test
     void testValidProdRootCertificates() throws Exception {
         CertificateAuthoritiesProperties prodProperties = CertificateAuthoritiesProperties.prodProperties();
+        Validator validator = rootCertValidator();
         for (String cert : prodProperties.getRootCertificates()) {
             X509Certificate x509Certificate = X509CertificateUtils.readX509Certificate(cert);
-            assertEquals(x509Certificate.getSubjectX500Principal(), x509Certificate.getIssuerX500Principal());
+            assertTrue(validator.isValid(x509Certificate));
         }
     }
-
 
     @DisplayName("then default root certificates for TEST are self signed")
     @Test
     void testValidTestRootCertificates() throws Exception {
         CertificateAuthoritiesProperties testProperties = CertificateAuthoritiesProperties.testProperties();
+        Validator validator = rootCertValidator();
         for (String cert : testProperties.getRootCertificates()) {
             X509Certificate x509Certificate = X509CertificateUtils.readX509Certificate(cert);
-            assertEquals(x509Certificate.getSubjectX500Principal(), x509Certificate.getIssuerX500Principal());
+            assertTrue(validator.isValid(x509Certificate));
         }
+    }
+
+    Validator rootCertValidator () {
+        return ValidatorBuilder.newInstance()
+                .addRule(new ExpirationRule())
+                .addRule(new SigningRule(SigningRule.Kind.SELF_SIGNED_ONLY))
+                .build();
     }
 
 }
