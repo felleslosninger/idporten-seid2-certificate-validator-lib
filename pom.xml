@@ -22,7 +22,7 @@
         <allure.report.version>2.4.1</allure.report.version>
         <allure.maven.version>2.11.2</allure.maven.version>
         <mockito-junit-jupiter.version>4.8.0</mockito-junit-jupiter.version>
-        <mockito-core.version>4.8.0</mockito-core.version>
+        <mockito-core.version>4.8.1</mockito-core.version>
     </properties>
 
     <dependencies>
