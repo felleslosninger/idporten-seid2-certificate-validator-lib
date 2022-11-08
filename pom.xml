@@ -18,7 +18,7 @@
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
         <allure.cmd.download.url>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
         </allure.cmd.download.url>
-        <allure.version>2.19.0</allure.version>
+        <allure.version>2.20.0</allure.version>
         <allure.report.version>2.4.1</allure.report.version>
         <allure.maven.version>2.11.2</allure.maven.version>
         <mockito-junit-jupiter.version>4.8.0</mockito-junit-jupiter.version>
