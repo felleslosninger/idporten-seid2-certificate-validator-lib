@@ -14,13 +14,9 @@
         <java.version>11</java.version>
         <eid.certvalidator.version>1.0.1</eid.certvalidator.version>
         <eid-certificate-generator.version>1.0.1</eid-certificate-generator.version>
+        <slf4j-api.version>1.7.36</slf4j-api.version>
         <junit-jupiter-version>5.9.2</junit-jupiter-version>
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
-        <allure.cmd.download.url>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
-        </allure.cmd.download.url>
-        <allure.version>2.20.1</allure.version>
-        <allure.report.version>2.4.1</allure.report.version>
-        <allure.maven.version>2.12.0</allure.maven.version>
         <mockito-junit-jupiter.version>5.0.0</mockito-junit-jupiter.version>
         <mockito-core.version>5.1.1</mockito-core.version>
     </properties>
@@ -32,6 +28,14 @@
             <artifactId>eid-certvalidator</artifactId>
             <version>${eid.certvalidator.version}</version>
         </dependency>
+        <!-- certvalidator requires alf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- COMPILE dependencies -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -63,11 +67,6 @@
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>${mockito-junit-jupiter.version}</version>
             <scope>test</scope>
-        </dependency>        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-junit5</artifactId>
-            <version>${allure.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -91,19 +90,9 @@
                             <name>junit.jupiter.extensions.autodetection.enabled</name>
                             <value>true</value>
                         </property>
-                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemProperties>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-maven</artifactId>
-                <version>${allure.maven.version}</version>
-                <configuration>
-                    <reportVersion>${allure.report.version}</reportVersion>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
     <repositories>
