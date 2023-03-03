@@ -28,7 +28,7 @@
             <artifactId>eid-certvalidator</artifactId>
             <version>${eid.certvalidator.version}</version>
         </dependency>
-        <!-- certvalidator requires alf4j -->
+        <!-- certvalidator requires slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
