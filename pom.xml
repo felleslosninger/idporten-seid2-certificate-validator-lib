@@ -17,7 +17,7 @@
         <slf4j-api.version>1.7.36</slf4j-api.version>
         <junit-jupiter-version>5.9.3</junit-jupiter-version>
         <surefire.plugin.version>3.0.0</surefire.plugin.version>
-        <mockito-junit-jupiter.version>5.3.0</mockito-junit-jupiter.version>
+        <mockito-junit-jupiter.version>5.3.1</mockito-junit-jupiter.version>
         <mockito-core.version>5.3.1</mockito-core.version>
     </properties>
 
