@@ -3,14 +3,13 @@ package no.idporten.seid2;
 import no.digdir.certvalidator.Validator;
 import no.digdir.certvalidator.ValidatorBuilder;
 import no.digdir.certvalidator.api.CertificateBucket;
+import no.digdir.certvalidator.api.CertificateValidationException;
 import no.digdir.certvalidator.api.CrlCache;
 import no.digdir.certvalidator.api.ValidatorRule;
 import no.digdir.certvalidator.rule.*;
 import no.digdir.certvalidator.util.CachingCrlFetcher;
 import no.digdir.certvalidator.util.SimpleCertificateBucket;
 
-import java.io.IOException;
-import java.security.cert.CertificateException;
 import java.util.Objects;
 import java.util.Set;
 
@@ -46,14 +45,14 @@ public class SEID2CertificateValidatorFactory {
         return new SEID2CertificateValidator(validator);
     }
 
-    private ValidatorRule createChainRule(Environment environment, CertificateAuthoritiesProperties certificateAuthoritiesProperties) throws IOException, CertificateException {
+    private ValidatorRule createChainRule(Environment environment, CertificateAuthoritiesProperties certificateAuthoritiesProperties) throws CertificateValidationException {
         return new ChainRule(
                 getCertificateBucket(certificateAuthoritiesProperties.getRootCertificates()),
                 getCertificateBucket(certificateAuthoritiesProperties.getIntermediateCertificates()),
                 certificateAuthoritiesProperties.getPolicies().toArray(new String[0]));
     }
 
-    private static CertificateBucket getCertificateBucket(Set<String> certs) throws IOException, CertificateException {
+    private static CertificateBucket getCertificateBucket(Set<String> certs) throws CertificateValidationException {
         SimpleCertificateBucket bucket = new SimpleCertificateBucket();
         for (String cert : certs) {
             bucket.add(X509CertificateUtils.readX509Certificate(cert));

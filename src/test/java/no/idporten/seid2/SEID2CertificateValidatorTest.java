@@ -9,8 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.security.cert.X509Certificate;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("When validating certificates")
 @ExtendWith(MockitoExtension.class)
@@ -32,7 +31,9 @@ public class SEID2CertificateValidatorTest {
     @Test
     void testValidateValidCertificate() throws Exception {
         SEID2CertificateValidator validator = createTestBusinessCertificateValidator(testData.props());
-        validator.isValid(testData.createCertificate());
+        X509Certificate certificate = testData.createCertificate();
+        assertTrue(validator.isValid(certificate));
+        assertTrue(validator.isValid(X509CertificateUtils.pemEncodedCert(certificate)));
     }
 
     @Test
@@ -41,6 +42,7 @@ public class SEID2CertificateValidatorTest {
         SEID2CertificateValidator validator = createTestBusinessCertificateValidator(testData.props());
         X509Certificate certificate = testData.selfSignedCertificate();
         assertFalse(validator.isValid(certificate));
+        assertFalse(validator.isValid(X509CertificateUtils.pemEncodedCert(certificate)));
     }
 
     @Test
@@ -97,6 +99,7 @@ public class SEID2CertificateValidatorTest {
                 "-----END CERTIFICATE-----";
         SEID2CertificateValidator validator = createTestBusinessCertificateValidator(CertificateAuthoritiesProperties.defaultProperties(environment));
         assertDoesNotThrow(() -> validator.validate(X509CertificateUtils.readX509Certificate(certificate)));
+        assertDoesNotThrow(() -> validator.validate(certificate));
     }
 
     @Test
@@ -142,6 +145,7 @@ public class SEID2CertificateValidatorTest {
                 "-----END CERTIFICATE-----";
         SEID2CertificateValidator validator = createTestBusinessCertificateValidator(CertificateAuthoritiesProperties.defaultProperties(environment));
         assertDoesNotThrow(() -> validator.validate(X509CertificateUtils.readX509Certificate(certificate)));
+        assertDoesNotThrow(() -> validator.validate(certificate));
     }
 
 }

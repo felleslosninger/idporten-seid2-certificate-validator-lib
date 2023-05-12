@@ -1,13 +1,12 @@
 package no.idporten.seid2;
 
+import no.digdir.certvalidator.api.CertificateValidationException;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.StringReader;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Base64;
@@ -21,22 +20,26 @@ class X509CertificateUtils {
     public static final String END_CERT = "-----END CERTIFICATE-----";
 
     /**
-     * Read X509 pem encoded certificate.
+     * Read X509 pem encoded certificate.  Adds header and footer if missing.
      */
-    static X509Certificate readX509Certificate(String cert) throws IOException, CertificateException {
-        if (!cert.startsWith(BEGIN_CERT)) {
-            cert = BEGIN_CERT + "\n" + cert;
-        }
-        if (!cert.endsWith(END_CERT)) {
-            cert = cert + "\n" + END_CERT;
-        }
+    static X509Certificate readX509Certificate(String cert) throws CertificateValidationException {
+        try {
+            if (!cert.startsWith(BEGIN_CERT)) {
+                cert = BEGIN_CERT + "\n" + cert;
+            }
+            if (!cert.endsWith(END_CERT)) {
+                cert = cert + "\n" + END_CERT;
+            }
 
-        StringReader certPem = new StringReader(cert);
-        PemReader pemReader = new PemReader(certPem);
-        PemObject pemObject = pemReader.readPemObject();
-        ByteArrayInputStream bIn = new ByteArrayInputStream(pemObject.getContent());
-        CertificateFactory instance = CertificateFactory.getInstance("X.509");
-        return (X509Certificate) instance.generateCertificate(bIn);
+            StringReader certPem = new StringReader(cert);
+            PemReader pemReader = new PemReader(certPem);
+            PemObject pemObject = pemReader.readPemObject();
+            ByteArrayInputStream bIn = new ByteArrayInputStream(pemObject.getContent());
+            CertificateFactory instance = CertificateFactory.getInstance("X.509");
+            return (X509Certificate) instance.generateCertificate(bIn);
+        } catch (Exception e) {
+            throw new CertificateValidationException("Failed to read certificate", e);
+        }
     }
 
     /**
