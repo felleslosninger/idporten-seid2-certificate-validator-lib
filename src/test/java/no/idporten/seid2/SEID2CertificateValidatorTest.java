@@ -148,6 +148,74 @@ public class SEID2CertificateValidatorTest {
         assertDoesNotThrow(() -> validator.validate(certificate));
     }
 
+    @Test
+    void testKartverket() throws Exception {
+        Environment environment = Environment.TEST;
+        String certificate = "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";
+        SEID2CertificateValidator validator = createTestBusinessCertificateValidator(CertificateAuthoritiesProperties.defaultProperties(environment));
+        assertDoesNotThrow(() -> validator.validate(X509CertificateUtils.readX509Certificate(certificate)));
+        assertDoesNotThrow(() -> validator.validate(certificate));
+    }
+
+
+    @DisplayName("Test ny policy fra Commfides prod")
+    @Test
+    void testKSCommfidesProdCert() throws Exception {
+        String certificate = "MIIIajCCBlKgAwIBAgIUXk4tZD1dwKbH76AF5BEndOjS6iAwDQYJKoZIhvcNAQEN\n" +
+                "BQAwajELMAkGA1UEBhMCTk8xGzAZBgNVBAoMEkNvbW1maWRlcyBOb3JnZSBBUzEY\n" +
+                "MBYGA1UEYQwPTlRSTk8tOTg4MzEyNDk1MSQwIgYDVQQDDBtDb21tZmlkZXMgTGVn\n" +
+                "YWwgUGVyc29uIC0gRzMwHhcNMjMwOTEzMTI1OTMzWhcNMjYwOTI3MTI1OTMyWjCB\n" +
+                "yDELMAkGA1UEBhMCTk8xJTAjBgNVBAcMHEhhYWtvbiBWSUlzIGdhdGUgOSwwMTYx\n" +
+                "IE9TTE8xKTAnBgNVBAoMIEtTLUtPTU1VTkVTRUtUT1JFTlMgT1JHQU5JU0FTSk9O\n" +
+                "MRgwFgYDVQRhDA9OVFJOTy05NzEwMzIxNDYxDjAMBgNVBAsMBUFubmV0MRIwEAYD\n" +
+                "VQQFEwk5NzEwMzIxNDYxKTAnBgNVBAMMIEtTLUtPTU1VTkVTRUtUT1JFTlMgT1JH\n" +
+                "QU5JU0FTSk9OMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEA+JxyrSvv\n" +
+                "nimNX26LkYp94eUjV5/pazpHBj/VQi3O8sWlRH8fLJAElw6J288MfqitwUQGF6SM\n" +
+                "PMX7JOsby55IKg8gBW6Yp34urdyIIYMPnbIn8DYeucd1jXpiI6HLmWmKPtCKC6II\n" +
+                "Ri61zlTVAejql2pkRqDydiX7lpBHhyEOZaQWjWytFPhTqoT4oZ+B7ZVW29E4fc/J\n" +
+                "HG0CfGV2m7T+OKOWJMkttyPJ1vc8GY7vA/yw2ClEr9ndCcId/6Mp5mb3hAJAcqkk\n" +
+                "1nsvptDSdGCuyo3I0CFZj32rd4eAk/Jj2csH7Q7Z2AM+6F+jELpKgzQN9q5HtjDv\n" +
+                "kajhMkv2OST4qPPnl+URqh2RDeXH+/CYtjtQrxmcLnhxKoeIxCyE04j57wt9s/zT\n" +
+                "f/grx62DgXphYGK3Y4dAV+q2TCrpQyFOgkPKkWx39QwYlJ5ke1geFD/bs4YVvQP9\n" +
+                "QyS5OZAdIBwr5kaZcEBjfYIMa0LSoDGamexQRLtz+gxD6J2OnWFOpiilAgMBAAGj\n" +
+                "ggMnMIIDIzAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFPE0SOC+YTGcIxYCemTx\n" +
+                "pUfH5edpMHwGCCsGAQUFBwEBBHAwbjBFBggrBgEFBQcwAoY5aHR0cDovL2NydC5j\n" +
+                "b21tZmlkZXMuY29tL0czL0NvbW1maWRlc0xlZ2FsUGVyc29uQ0EtRzMuY3J0MCUG\n" +
+                "CCsGAQUFBzABhhlodHRwOi8vb2NzcC5jb21tZmlkZXMuY29tMB8GA1UdEQQYMBaB\n" +
+                "FGZpa3MtdXR2aWtsaW5nQGtzLm5vMIGxBgNVHSAEgakwgaYwCQYHBACL7EABATCB\n" +
+                "mAYKYIRCAR0NgVIBATCBiTCBhgYIKwYBBQUHAgEWemh0dHBzOi8vcGRzLmNvbW1m\n" +
+                "aWRlcy5jb20vRzMvQ29tbWZpZGVzLVBEUy1mb3ItQ2VydGlmaWNhdGVzLWFuZC1F\n" +
+                "VS1RdWFsaWZpZWQtQ2VydGlmaWNhdGVzLUxlZ2FsLVBlcnNvbi1DZW50cmFsLUcz\n" +
+                "X3YxLTEucGRmMDMGA1UdJQQsMCoGCCsGAQUFBwMCBggrBgEFBQcDBAYKKwYBBAGC\n" +
+                "NxQCAgYIKwYBBQUHAwEwge4GCCsGAQUFBwEDBIHhMIHeMBUGCCsGAQUFBwsCMAkG\n" +
+                "BwQAi+xJAQIwCAYGBACORgEBMBUGBgQAjkYBAjALEwNOT0sCAQECAQQwEwYGBACO\n" +
+                "RgEGMAkGBwQAjkYBBgIwgY4GBgQAjkYBBTCBgzCBgBZ6aHR0cHM6Ly9wZHMuY29t\n" +
+                "bWZpZGVzLmNvbS9HMy9Db21tZmlkZXMtUERTLWZvci1DZXJ0aWZpY2F0ZXMtYW5k\n" +
+                "LUVVLVF1YWxpZmllZC1DZXJ0aWZpY2F0ZXMtTGVnYWwtUGVyc29uLUNlbnRyYWwt\n" +
+                "RzNfdjEtMS5wZGYTAmVuMEoGA1UdHwRDMEEwP6A9oDuGOWh0dHA6Ly9jcmwuY29t\n" +
+                "bWZpZGVzLmNvbS9HMy9Db21tZmlkZXNMZWdhbFBlcnNvbkNBLUczLmNybDAdBgNV\n" +
+                "HQ4EFgQUOJQthvcm4gYkhV6w7m2AfGFYsOcwDgYDVR0PAQH/BAQDAgeAMA0GCSqG\n" +
+                "SIb3DQEBDQUAA4ICAQB4NoEnKvtNxxBdNJBu5tIVmWivy3gJtiPgjQc4c5Pc1dNW\n" +
+                "zhWF+X1t9/Txgff3xPU6VCxoCcf2YfxlgSuLELwUQviGvBWZzuAJxnBn/AUtsuWr\n" +
+                "KFn1CGBhb67AeArkxRU6WHzz2mF1OSjs1gQC+s1dstd7qS8OcspFSv/MOB0yQi4T\n" +
+                "SRF24wHUACoJBot2Uq6qnC6itwvBJo/uJ8sDCAprVkpaTOF+hs6W2x9e17FY5cZs\n" +
+                "t3PtA3UOcX9yYDHsOtHsxtTuzEjzJWSpyZ4PF5H0r8vFp1+YxXKL9RQIhRJ4rcqL\n" +
+                "QotdS7FoOw6ifoFuOxiV/r6VEYq2rw/XMk5q8hM7RqVRHYObIoaRKJzlKxD9NeK/\n" +
+                "8/gsKIbab8a8KUqQ1fA0nigFraMtGqldReUjvFxp0sVdu5vPy2aImQLmXc3lUE0w\n" +
+                "B0vgjojshZLwSVsrRUztogiAMS/Bvv1Rf/Lbogsu7I97sdLNgY38hO8nDChmlU4n\n" +
+                "bhpFCpa+tPPh7xGkKdOe8s0OFrPhDi5EceBObE2xt+VeE4ONSxy+4HBG9Hip+Mnc\n" +
+                "kDIvAElJyFqVlVIekIW41i7h3NWMZGd7FbFaHi2hItAuBsdEF3A8IlsNiTisfM/f\n" +
+                "5MYLt4XLaFbDNOfbEjCUjQuwTAOm1khGE31bNs5QRzuZ2RkBdQf8fwelOOc3Qg==";
+
+        Environment environment = Environment.PROD;
+        SEID2CertificateValidator validator = createTestBusinessCertificateValidator(CertificateAuthoritiesProperties.defaultProperties(environment));
+        assertDoesNotThrow(() -> validator.validate(X509CertificateUtils.readX509Certificate(certificate)));
+        assertDoesNotThrow(() -> validator.validate(certificate));
+    }
+
+
+
+
 }
 
 
