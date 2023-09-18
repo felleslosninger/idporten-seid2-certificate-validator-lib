@@ -68,7 +68,7 @@ public class CertificateAuthoritiesProperties {
                 "2.16.578.1.29.913.210.1.0",
                 "2.16.578.1.29.913.220.1.0",
                 "2.16.578.1.1.1.1.100"
-        ));
+                ));
         certificateAuthoritiesProperties.setCriticalExtensionsRecognized(Set.of(
                 "2.5.29.15",
                 "2.5.29.19"
@@ -122,6 +122,7 @@ public class CertificateAuthoritiesProperties {
                 "2.16.578.1.29.13.200",
                 "2.16.578.1.29.13.210.1.0",
                 "2.16.578.1.29.13.210",
+                "2.16.578.1.29.13.210.1.1",
                 "2.16.578.1.29.13.220.1.0",
                 // Commfides Enterprise Class 3
                 "2.16.578.1.29.13.1.1.0",
