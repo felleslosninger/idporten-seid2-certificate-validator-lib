@@ -16,7 +16,7 @@
         <eid-certificate-generator.version>1.1.0</eid-certificate-generator.version>
         <slf4j-api.version>2.0.9</slf4j-api.version>
         <junit-jupiter-version>5.10.0</junit-jupiter-version>
-        <surefire.plugin.version>3.2.1</surefire.plugin.version>
+        <surefire.plugin.version>3.2.2</surefire.plugin.version>
         <mockito-junit-jupiter.version>5.7.0</mockito-junit-jupiter.version>
         <mockito-core.version>5.7.0</mockito-core.version>
     </properties>
