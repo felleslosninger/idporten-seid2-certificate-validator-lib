@@ -103,8 +103,8 @@ public class SEID2CertificateValidatorTest {
     }
 
     @Test
-    @DisplayName("then Digdirs Buypass SoftToken cert is valid")
-    void testDigdirBuypassSoftToken() throws Exception {
+    @DisplayName("then Digdirs Buypass test SoftToken cert is invalid (expired)")
+    void testDigdirBuypassExpiredSoftToken() throws Exception {
         Environment environment = Environment.TEST;
         String certificate = "-----BEGIN CERTIFICATE-----\n" +
                 "MIIGZjCCBE6gAwIBAgIKBSmqVtkz9l9mijANBgkqhkiG9w0BAQsFADBuMQswCQYD\n" +
@@ -144,8 +144,56 @@ public class SEID2CertificateValidatorTest {
                 "vbtKaa4BsjPZAg==\n" +
                 "-----END CERTIFICATE-----";
         SEID2CertificateValidator validator = createTestBusinessCertificateValidator(CertificateAuthoritiesProperties.defaultProperties(environment));
-        assertDoesNotThrow(() -> validator.validate(X509CertificateUtils.readX509Certificate(certificate)));
-        assertDoesNotThrow(() -> validator.validate(certificate));
+        assertFalse(validator.isValid(X509CertificateUtils.readX509Certificate(certificate)));
+        assertFalse(validator.isValid(certificate));
+    }
+
+    @Test
+    @DisplayName("then Digdirs Buypass 4096 cert is valid")
+    void testDigdirBuypassSoftToken() throws Exception {
+        Environment environment = Environment.TEST;
+        String certificate = "-----BEGIN CERTIFICATE-----\n" +
+                "MIIG1DCCBLygAwIBAgILAZt5rbJFDP5MyJgwDQYJKoZIhvcNAQELBQAwbjELMAkG\n" +
+                "A1UEBhMCTk8xGDAWBgNVBGEMD05UUk5PLTk4MzE2MzMyNzETMBEGA1UECgwKQnV5\n" +
+                "cGFzcyBBUzEwMC4GA1UEAwwnQnV5cGFzcyBDbGFzcyAzIFRlc3Q0IENBIEcyIFNU\n" +
+                "IEJ1c2luZXNzMB4XDTIzMDkwNTA4NDYwNFoXDTI2MDkwNTIxNTkwMFoweDELMAkG\n" +
+                "A1UEBhMCTk8xJDAiBgNVBAoMG0RJR0lUQUxJU0VSSU5HU0RJUkVLVE9SQVRFVDEp\n" +
+                "MCcGA1UEAwwgRElHSVRBTElTRVJJTkdTRElSRUtUT1JBVEVUIFRFU1QxGDAWBgNV\n" +
+                "BGEMD05UUk5PLTk5MTgyNTgyNzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoC\n" +
+                "ggIBAK7FQqr3C9NikTYPAJFLgd6m80cwxSbdD+QfBOewwCrUqIHMmvtS0W1mPiSv\n" +
+                "2gJ67gJGEoldkQuQtFW69+m33oO8QDWXsLCJjrgrXU7aRG1yKiMimgp8gw5R9+es\n" +
+                "PyyqHojE7OtKrnrAhgfp2cFUyKK/bFJp7y7C8YUcd7J++CneU8UgZYOnvbWo7HAA\n" +
+                "2xjds5/SR/eAbF5HYdMM951ukEZ7rsDcvrED9V/+I6iM8Igy8B7SChdCYjhdhC3p\n" +
+                "w0nPCfGUZjq9CFOYkIK9LJ820r3npR0zQ3trD9g0YTjo8Y3Z/4xkotxBrHSZzGvQ\n" +
+                "hAJJwWusajNeCji5T3p5ptaAXciD5dl7CGvqSykhUysHwbJoOqTEi4+1ZUK2klaQ\n" +
+                "1L9FG8kfbZ/pYpMQx7VX4Q9vhI0dg+ct33iZzLlfMPGefp3GcU1s1SyhloczGM8K\n" +
+                "wIpHBBcNkh6zpnqte/lRyf4V4W/rvcJcMbvDvIzmPHmJp/l/qXmrvrp+PUU6+10+\n" +
+                "8AlUIDnIGUxKueDE6voAmO9tht16Gnq2XFsZ58YFbzZebHicONvLDpq8kIDM0F99\n" +
+                "Ry08+xagwqvVKWne8aJEahqyIT4nDrL/1HXTGZNn3RVSQgdsC0yCqLVGlQ74wFpa\n" +
+                "cGOvPdLckSqd/ccbyPK1sijjnLqwdCBLcjCBqYAVzDGOn7GXAgMBAAGjggFnMIIB\n" +
+                "YzAJBgNVHRMEAjAAMB8GA1UdIwQYMBaAFKf+u2xZiK10LkZeemj50bu/z7aLMB0G\n" +
+                "A1UdDgQWBBSrwKSRlhmheKrxflyWAT9oH6l6YzAOBgNVHQ8BAf8EBAMCBkAwHwYD\n" +
+                "VR0gBBgwFjAKBghghEIBGgEDAjAIBgYEAI96AQEwQQYDVR0fBDowODA2oDSgMoYw\n" +
+                "aHR0cDovL2NybC50ZXN0NC5idXlwYXNzY2EuY29tL0JQQ2wzQ2FHMlNUQlMuY3Js\n" +
+                "MHsGCCsGAQUFBwEBBG8wbTAtBggrBgEFBQcwAYYhaHR0cDovL29jc3Bicy50ZXN0\n" +
+                "NC5idXlwYXNzY2EuY29tMDwGCCsGAQUFBzAChjBodHRwOi8vY3J0LnRlc3Q0LmJ1\n" +
+                "eXBhc3NjYS5jb20vQlBDbDNDYUcyU1RCUy5jZXIwJQYIKwYBBQUHAQMEGTAXMBUG\n" +
+                "CCsGAQUFBwsCMAkGBwQAi+xJAQIwDQYJKoZIhvcNAQELBQADggIBAFW+YfGKzCcP\n" +
+                "4uQH+aXjPnSTsT6ad/F7Ze5hOb+9USefOyG+RsJBDRn0lJpbfto64PUDcp0EGOux\n" +
+                "gg4zHsfJXCIoUwrVIHNHGIDQE8MLXDaGcaUTmSgGW2QMlTvRYZWl8Z627Fhc0ku0\n" +
+                "w5gUO+xoHhSR67niKuTn3ovQHIMP3roJ8jB0F/jYn4l0QpHydPSdn0Sqeb+eRfOJ\n" +
+                "BBD7EgrRbHFCfF9/v67tyj1NAJab3YYMB/ejf7oChdjHW5YszbeFAbCie4X7Zm/h\n" +
+                "/N/HLKOcSi/hL1bUtphJZ/9lxL9Z4FsffsrVuwvFzAGXn+rSj1c73hHfL4jG4MBw\n" +
+                "HxEo9ebqBoAbXdOrVZru0vwkTdnliX7KwNvMZVElq76uY6SG8vnvXhklE0gxzAmo\n" +
+                "rdEE8/1uSL3EtAcR0e5R1tSpoSsIP8nkqDRnsFzCOrfNCi0qPbXp8M+HqQuPc9nD\n" +
+                "ggwxXd21soqi5dNo+o74T7jXx5sxH/BjC1AqtGbJFGBSln4Ow+P/jdSwvUakey0b\n" +
+                "qxdNqS001QJZ3PQgboHmeoQGoFE1XuVR7BT58oP2qk1I+tI/kddilWRlnM2UlRCj\n" +
+                "s/vBqdlp6Ec525+Q3XWlECzPP3jfOdaDvzBlP/t93hh6kGICixoP77Jc4p/YsSNz\n" +
+                "YCIJgssoP0wyS1d1BFeNLzV1yd0ZhANp\n" +
+                "-----END CERTIFICATE-----";
+        SEID2CertificateValidator validator = createTestBusinessCertificateValidator(CertificateAuthoritiesProperties.defaultProperties(environment));
+        assertTrue(validator.isValid(X509CertificateUtils.readX509Certificate(certificate)));
+        assertTrue(validator.isValid(certificate));
     }
 
     @Test
