@@ -12,7 +12,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <eid.certvalidator.version>3.1.2</eid.certvalidator.version>
+        <eid.certvalidator.version>3.2.0</eid.certvalidator.version>
         <eid-certificate-generator.version>1.1.0</eid-certificate-generator.version>
         <slf4j-api.version>2.0.16</slf4j-api.version>
         <junit-jupiter-version>5.11.0</junit-jupiter-version>
