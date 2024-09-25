@@ -341,7 +341,6 @@ public class SEID2CertificateValidatorTest {
                 "BqKUxWeATp3mV5og5RKg3IKE9GYfxLQ9ErKdED2Nb2o7";
 
 
-
         Environment environment = Environment.PROD;
         SEID2CertificateValidator validator = createTestBusinessCertificateValidator(CertificateAuthoritiesProperties.defaultProperties(environment));
         assertAll(
@@ -354,9 +353,4 @@ public class SEID2CertificateValidatorTest {
         );
     }
 
-
-
-
 }
-
-
