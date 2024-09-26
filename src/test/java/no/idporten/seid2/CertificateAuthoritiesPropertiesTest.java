@@ -1,8 +1,10 @@
 package no.idporten.seid2;
 
 
+import lombok.SneakyThrows;
 import no.digdir.certvalidator.Validator;
 import no.digdir.certvalidator.ValidatorBuilder;
+import no.digdir.certvalidator.rule.ChainRule;
 import no.digdir.certvalidator.rule.ExpirationRule;
 import no.digdir.certvalidator.rule.SigningRule;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.security.cert.X509Certificate;
 
+import static no.idporten.seid2.SEID2CertificateValidatorFactory.getCertificateBucket;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -37,20 +40,20 @@ public class CertificateAuthoritiesPropertiesTest {
     @DisplayName("then default intermediate certificates for PROD are valid")
     @Test
     void testValidProdIntermediateCertificates() throws Exception {
-        SEID2CertificateValidator SEID2CertificateValidator = new SEID2CertificateValidatorBuilder(Environment.PROD).build();
         CertificateAuthoritiesProperties prodProperties = CertificateAuthoritiesProperties.prodProperties();
+        Validator validator = intermediateCertValidator(prodProperties);
         for (String cert : prodProperties.getIntermediateCertificates()) {
-            assertDoesNotThrow(() -> SEID2CertificateValidator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
+            assertDoesNotThrow(() -> validator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
         }
     }
 
     @DisplayName("then default intermediate certificates for TEST are valid")
     @Test
     void testValidTestIntermediateCertificates() throws Exception {
-        SEID2CertificateValidator SEID2CertificateValidator = new SEID2CertificateValidatorBuilder(Environment.TEST).build();
         CertificateAuthoritiesProperties testProperties = CertificateAuthoritiesProperties.testProperties();
+        Validator validator = intermediateCertValidator(testProperties);
         for (String cert : testProperties.getIntermediateCertificates()) {
-            assertDoesNotThrow(() -> SEID2CertificateValidator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
+            assertDoesNotThrow(() -> validator.validate(X509CertificateUtils.readX509Certificate(cert)), "Invalid certificate " + cert);
         }
     }
 
@@ -80,6 +83,15 @@ public class CertificateAuthoritiesPropertiesTest {
         return ValidatorBuilder.newInstance()
                 .addRule(new ExpirationRule())
                 .addRule(new SigningRule(SigningRule.Kind.SELF_SIGNED_ONLY))
+                .build();
+    }
+
+    @SneakyThrows
+    Validator intermediateCertValidator (CertificateAuthoritiesProperties properties) {
+        return ValidatorBuilder.newInstance()
+                .addRule(new ExpirationRule())
+                .addRule(new SigningRule(SigningRule.Kind.PUBLIC_SIGNED_ONLY))
+                .addRule(new ChainRule(getCertificateBucket(properties.getRootCertificates()), getCertificateBucket(properties.getIntermediateCertificates())))
                 .build();
     }
 

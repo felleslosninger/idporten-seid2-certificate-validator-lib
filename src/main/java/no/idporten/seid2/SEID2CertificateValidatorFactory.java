@@ -40,6 +40,7 @@ public class SEID2CertificateValidatorFactory {
                 .addRule(new CriticalExtensionRecognizedRule((certificateAuthoritiesProperties.getCriticalExtensionsRecognized().toArray(new String[0]))))
                 .addRule(new CriticalExtensionRequiredRule(certificateAuthoritiesProperties.getCriticalExtensionsRequired().toArray(new String[0])))
                 .addRule(createChainRule(environment, certificateAuthoritiesProperties))
+                .addRule(new PolicyRule(certificateAuthoritiesProperties.getPolicies()))
                 .addRule(new CRLRule(new CachingCrlFetcher(crlCache)))
                 .build();
         return new SEID2CertificateValidator(validator);
@@ -48,11 +49,10 @@ public class SEID2CertificateValidatorFactory {
     private ValidatorRule createChainRule(Environment environment, CertificateAuthoritiesProperties certificateAuthoritiesProperties) throws CertificateValidationException {
         return new ChainRule(
                 getCertificateBucket(certificateAuthoritiesProperties.getRootCertificates()),
-                getCertificateBucket(certificateAuthoritiesProperties.getIntermediateCertificates()),
-                certificateAuthoritiesProperties.getPolicies().toArray(new String[0]));
+                getCertificateBucket(certificateAuthoritiesProperties.getIntermediateCertificates()));
     }
 
-    private static CertificateBucket getCertificateBucket(Set<String> certs) throws CertificateValidationException {
+    protected static CertificateBucket getCertificateBucket(Set<String> certs) throws CertificateValidationException {
         SimpleCertificateBucket bucket = new SimpleCertificateBucket();
         for (String cert : certs) {
             bucket.add(X509CertificateUtils.readX509Certificate(cert));
