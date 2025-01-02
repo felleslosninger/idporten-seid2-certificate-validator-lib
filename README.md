@@ -13,7 +13,7 @@ The setup for certificate validation in complex.  Even if the configuration of c
 
 ## Certificate authorities properties
 
-The default properties used in the library is avaibale in the [certificate authorities properties](src/main/java/no/idporten/seid2/CertificateAuthoritiesProperties.java) class.  It contains properties for test and production environments for certificate authorities Buypass and Commfides.
+The default properties used in the library is available in the [certificate authorities properties](src/main/java/no/idporten/seid2/CertificateAuthoritiesProperties.java) class.  It contains properties for test and production environments for certificate authorities Buypass and Commfides.
 
 ## Pre-loaded CRLs
 
