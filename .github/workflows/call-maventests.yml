@@ -14,5 +14,8 @@ jobs:
     uses: felleslosninger/github-workflows/.github/workflows/ci-maven-install-deploy-lib.yml@main
     with:
       java-version: 11
+      sbom-path: ./
+      package-version: ${{ github.event.release.tag_name }}
+      deployment-repository: ${{ github.repository }}
     secrets: inherit
     
