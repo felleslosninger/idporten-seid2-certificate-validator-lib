@@ -6,16 +6,10 @@ name: Maven build
 on:
   pull_request:
     branches: [ main ]
-  push:
-    branches: [ main ]
 
 jobs:
   call-workflow-maven-build:
-    uses: felleslosninger/github-workflows/.github/workflows/ci-maven-install-deploy-lib.yml@main
+    uses: felleslosninger/github-workflows/.github/workflows/ci-maven-build-lib.yml@main
     with:
       java-version: 11
-      sbom-path: ./
-      package-version: ${{ github.event.release.tag_name }}
-      deployment-repository: ${{ github.repository }}
-    secrets: inherit
-    
+    secrets: inherit    
