@@ -11,7 +11,11 @@ on:
 
 jobs:
   call-workflow-maven-build:
-    uses: felleslosninger/github-workflows/.github/workflows/ci-maven-build-lib.yml@main
+    uses: felleslosninger/github-workflows/.github/workflows/ci-maven-install-deploy-lib.yml@main
     with:
-      java-version: 11
+      java-version:             # (optional) default: 11
+      sbom-path:                # (optional) default: ./target/
+      package-version: ${{ github.event.release.tag_name }}
+      deployment-repository: ${{ github.repository }}
     secrets: inherit
+    
