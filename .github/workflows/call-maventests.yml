@@ -9,7 +9,7 @@ on:
 
 jobs:
   call-workflow-maven-build:
-    uses: felleslosninger/github-workflows/.github/workflows/ci-maven-build-lib.yml@main
+    uses: felleslosninger/github-workflows/.github/workflows/ci-maven-build-lib.yml@test-remove-permissions
     with:
       java-version: 11
     secrets: inherit    
