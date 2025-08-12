@@ -1,10 +1,10 @@
 package no.idporten.seid2;
 
-import no.digdir.certvalidator.api.AsyncCrlCache;
-import no.digdir.certvalidator.api.CrlCache;
-import no.digdir.certvalidator.util.DirectoryCrlCache;
-import no.digdir.certvalidator.util.SimpleAsyncCrlCache;
-import no.digdir.certvalidator.util.SimpleCrlCache;
+import no.idporten.validator.certificate.api.AsyncCrlCache;
+import no.idporten.validator.certificate.api.CrlCache;
+import no.idporten.validator.certificate.util.DirectoryCrlCache;
+import no.idporten.validator.certificate.util.SimpleAsyncCrlCache;
+import no.idporten.validator.certificate.util.SimpleCrlCache;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -44,7 +44,7 @@ public class SEID2CertificateValidatorBuilderTest {
         assertAll(
                 () -> assertNotNull(SEID2CertificateValidator),
                 () -> assertEquals(CertificateAuthoritiesProperties.testProperties(), propertiesCaptor.getValue()),
-                () -> assertTrue(crlCacheCaptor.getValue() instanceof SimpleAsyncCrlCache)
+                () -> assertInstanceOf(SimpleAsyncCrlCache.class, crlCacheCaptor.getValue())
         );
         for (String crlDistributionPoint : propertiesCaptor.getValue().getCrlDistributionPoints()) {
             assertNotNull(crlCacheCaptor.getValue().get(crlDistributionPoint));

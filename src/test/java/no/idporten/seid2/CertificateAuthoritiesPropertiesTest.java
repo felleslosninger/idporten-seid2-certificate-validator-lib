@@ -2,11 +2,11 @@ package no.idporten.seid2;
 
 
 import lombok.SneakyThrows;
-import no.digdir.certvalidator.Validator;
-import no.digdir.certvalidator.ValidatorBuilder;
-import no.digdir.certvalidator.rule.ChainRule;
-import no.digdir.certvalidator.rule.ExpirationRule;
-import no.digdir.certvalidator.rule.SigningRule;
+import no.idporten.validator.certificate.Validator;
+import no.idporten.validator.certificate.ValidatorBuilder;
+import no.idporten.validator.certificate.rule.ChainRule;
+import no.idporten.validator.certificate.rule.ExpirationRule;
+import no.idporten.validator.certificate.rule.SigningRule;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ public class CertificateAuthoritiesPropertiesTest {
 
     @DisplayName("then default intermediate certificates for PROD are valid")
     @Test
-    void testValidProdIntermediateCertificates() throws Exception {
+    void testValidProdIntermediateCertificates() {
         CertificateAuthoritiesProperties prodProperties = CertificateAuthoritiesProperties.prodProperties();
         Validator validator = intermediateCertValidator(prodProperties);
         for (String cert : prodProperties.getIntermediateCertificates()) {
@@ -49,7 +49,7 @@ public class CertificateAuthoritiesPropertiesTest {
 
     @DisplayName("then default intermediate certificates for TEST are valid")
     @Test
-    void testValidTestIntermediateCertificates() throws Exception {
+    void testValidTestIntermediateCertificates() {
         CertificateAuthoritiesProperties testProperties = CertificateAuthoritiesProperties.testProperties();
         Validator validator = intermediateCertValidator(testProperties);
         for (String cert : testProperties.getIntermediateCertificates()) {

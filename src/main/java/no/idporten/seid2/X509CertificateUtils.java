@@ -1,6 +1,6 @@
 package no.idporten.seid2;
 
-import no.digdir.certvalidator.api.CertificateValidationException;
+import no.idporten.validator.certificate.api.CertificateValidationException;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
 
@@ -46,11 +46,7 @@ class X509CertificateUtils {
      * Encode certificate.
      */
     static String pemEncodedCert(Certificate cert) throws Exception {
-        StringBuilder sb = new StringBuilder();
-        sb.append(BEGIN_CERT + "\n");
-        sb.append(Base64.getEncoder().encodeToString(cert.getEncoded()));
-        sb.append("\n" + END_CERT);
-        return sb.toString();
+        return String.format("%s\n%s\n%s", BEGIN_CERT, Base64.getEncoder().encodeToString(cert.getEncoded()), END_CERT);
     }
 
 }

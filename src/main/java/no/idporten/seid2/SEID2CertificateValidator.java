@@ -1,8 +1,8 @@
 package no.idporten.seid2;
 
 import lombok.extern.slf4j.Slf4j;
-import no.digdir.certvalidator.Validator;
-import no.digdir.certvalidator.api.CertificateValidationException;
+import no.idporten.validator.certificate.Validator;
+import no.idporten.validator.certificate.api.CertificateValidationException;
 
 import java.security.cert.X509Certificate;
 import java.util.Objects;

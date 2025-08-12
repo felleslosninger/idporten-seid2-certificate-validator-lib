@@ -1,6 +1,6 @@
 package no.idporten.seid2;
 
-import no.digdir.certvalidator.util.CrlUtils;
+import no.idporten.validator.certificate.util.CrlUtils;
 
 import java.net.URL;
 import java.net.URLEncoder;

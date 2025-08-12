@@ -12,7 +12,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <eid.certvalidator.version>3.4.0</eid.certvalidator.version>
+        <idporten.certvalidator.version>4.0.0</idporten.certvalidator.version>
         <eid-certificate-generator.version>1.3.0</eid-certificate-generator.version>
         <slf4j-api.version>2.0.17</slf4j-api.version>
         <junit-jupiter-version>5.13.4</junit-jupiter-version>
@@ -24,9 +24,9 @@
     <dependencies>
         <!-- Runtime dependencies - please keep this library small -->
         <dependency>
-            <groupId>no.digdir.eid</groupId>
-            <artifactId>eid-certvalidator</artifactId>
-            <version>${eid.certvalidator.version}</version>
+            <groupId>no.idporten.validator.certificate</groupId>
+            <artifactId>idporten-certvalidator</artifactId>
+            <version>${idporten.certvalidator.version}</version>
         </dependency>
         <!-- certvalidator requires slf4j -->
         <dependency>
