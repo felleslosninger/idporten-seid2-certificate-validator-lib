@@ -46,7 +46,7 @@ class X509CertificateUtils {
      * Encode certificate.
      */
     static String pemEncodedCert(Certificate cert) throws Exception {
-        return String.format("%s\n%s\n%s", BEGIN_CERT, Base64.getEncoder().encodeToString(cert.getEncoded()), END_CERT);
+        return String.format("%s%n%s%n%s", BEGIN_CERT, Base64.getEncoder().encodeToString(cert.getEncoded()), END_CERT);
     }
 
 }
