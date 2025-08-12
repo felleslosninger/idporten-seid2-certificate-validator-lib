@@ -70,4 +70,4 @@ The isValid() method returns true for valid certificates and false for invalid c
 
 ### Logging
 The library uses Slf4j and logs from classes under root package `no.idporten.seid2` .
-The underlying library logs from classes under `no.digdir.certvalidator` . 
+The underlying library logs from classes under `no.idporten.validator.certificate` . 
