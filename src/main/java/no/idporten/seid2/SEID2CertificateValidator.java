@@ -1,8 +1,9 @@
 package no.idporten.seid2;
 
-import lombok.extern.slf4j.Slf4j;
-import no.digdir.certvalidator.Validator;
-import no.digdir.certvalidator.api.CertificateValidationException;
+import no.idporten.validator.certificate.Validator;
+import no.idporten.validator.certificate.api.CertificateValidationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.cert.X509Certificate;
 import java.util.Objects;
@@ -10,8 +11,10 @@ import java.util.Objects;
 /**
  * SEID2 certificate validator for X509 certificates.
  */
-@Slf4j
 public class SEID2CertificateValidator {
+
+    private final Logger log = LoggerFactory.getLogger(SEID2CertificateValidator.class);
+
     private final Validator validator;
 
     public SEID2CertificateValidator(Validator validator) {

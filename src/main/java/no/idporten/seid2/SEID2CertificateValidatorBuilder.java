@@ -1,9 +1,9 @@
 package no.idporten.seid2;
 
 
-import no.digdir.certvalidator.api.AsyncCrlCache;
-import no.digdir.certvalidator.api.CrlCache;
-import no.digdir.certvalidator.util.SimpleAsyncCrlCache;
+import no.idporten.validator.certificate.api.AsyncCrlCache;
+import no.idporten.validator.certificate.api.CrlCache;
+import no.idporten.validator.certificate.util.SimpleAsyncCrlCache;
 
 import java.util.Objects;
 

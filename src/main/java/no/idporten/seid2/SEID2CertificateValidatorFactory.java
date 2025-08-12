@@ -1,14 +1,14 @@
 package no.idporten.seid2;
 
-import no.digdir.certvalidator.Validator;
-import no.digdir.certvalidator.ValidatorBuilder;
-import no.digdir.certvalidator.api.CertificateBucket;
-import no.digdir.certvalidator.api.CertificateValidationException;
-import no.digdir.certvalidator.api.CrlCache;
-import no.digdir.certvalidator.api.ValidatorRule;
-import no.digdir.certvalidator.rule.*;
-import no.digdir.certvalidator.util.CachingCrlFetcher;
-import no.digdir.certvalidator.util.SimpleCertificateBucket;
+import no.idporten.validator.certificate.Validator;
+import no.idporten.validator.certificate.ValidatorBuilder;
+import no.idporten.validator.certificate.api.CertificateBucket;
+import no.idporten.validator.certificate.api.CertificateValidationException;
+import no.idporten.validator.certificate.api.CrlCache;
+import no.idporten.validator.certificate.api.ValidatorRule;
+import no.idporten.validator.certificate.rule.*;
+import no.idporten.validator.certificate.util.CachingCrlFetcher;
+import no.idporten.validator.certificate.util.SimpleCertificateBucket;
 
 import java.util.Objects;
 import java.util.Set;
