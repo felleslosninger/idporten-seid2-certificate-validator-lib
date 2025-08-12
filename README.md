@@ -1,6 +1,6 @@
 # idporten-seid2-certificate-validator
 
-Java library setting up [eid-certvalidator](https://github.com/felleslosninger/eid-certvalidator) for SEID 2.0 certificate validation in applications.  
+Java library setting up [idporten-certificate-validator-lib](https://github.com/felleslosninger/idporten-certificate-validator-lib) for SEID 2.0 certificate validation in applications.  
 
 Buypass has made a presentation of [SEID v2.0 nye nasjonale sertifikatprofiler](SEID%20v%202.0%20-%20Nye%20nasjonale%20sertifikatprofiler%20-%20Buypass.pdf).
 
