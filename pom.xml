@@ -19,6 +19,7 @@
         <surefire.plugin.version>3.5.3</surefire.plugin.version>
         <mockito-junit-jupiter.version>5.20.0</mockito-junit-jupiter.version>
         <mockito-core.version>5.18.0</mockito-core.version>
+        <maven.compiler.proc>full</maven.compiler.proc>
     </properties>
 
     <dependencies>
