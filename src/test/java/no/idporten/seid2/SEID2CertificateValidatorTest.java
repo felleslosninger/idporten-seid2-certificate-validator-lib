@@ -22,13 +22,9 @@ public class SEID2CertificateValidatorTest {
         testData = new TestData();
     }
 
+    @SneakyThrows
     protected SEID2CertificateValidator createTestBusinessCertificateValidator(CertificateAuthoritiesProperties properties) {
-        try {
-            return new SEID2CertificateValidatorBuilder(Environment.TEST).withProperties(properties).build();
-        } catch (Exception e) {
-            fail("Failed to create business certificate validator", e);
-            return null;
-        }
+        return new SEID2CertificateValidatorBuilder(Environment.TEST).withProperties(properties).build();
     }
 
     @DisplayName("then a valid certificate is accepted")
