@@ -17,7 +17,7 @@
         <lombok.version>1.18.42</lombok.version>
         <slf4j-api.version>2.0.17</slf4j-api.version>
         <junit-jupiter-version>5.13.4</junit-jupiter-version>
-        <surefire.plugin.version>3.5.4</surefire.plugin.version>
+        <surefire.plugin.version>3.5.5</surefire.plugin.version>
         <mockito-junit-jupiter.version>5.21.0</mockito-junit-jupiter.version>
         <mockito-core.version>5.21.0</mockito-core.version>
         <maven.compiler.proc>full</maven.compiler.proc>
